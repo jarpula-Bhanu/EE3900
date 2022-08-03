@@ -1,0 +1,623 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage{caption}
+%\usepackage{multirow}
+%\usepackage{multicolumn}
+%\usepackage{subcaption}
+%\doublespacing
+\singlespacing
+\usepackage{csvsimple}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+%\usepackage{enumerate}
+\usepackage{amssymb}
+%\usepackage{graphicx}
+\usepackage{newfloat}
+%\usepackage{syntax}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{shapes,arrows}
+
+%\usepackage{graphicx}
+%\usepackage{amssymb}
+%\usepackage{relsize}
+%\usepackage[cmex10]{amsmath}
+%\usepackage{mathtools}
+%\usepackage{amsthm}
+%\interdisplaylinepenalty=2500
+%\savesymbol{iint}
+%\usepackage{txfonts}
+%\restoresymbol{TXF}{iint}
+%\usepackage{wasysym}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{txfonts}
+\usepackage{stfloats}
+\usepackage{cite}
+\usepackage{cases}
+\usepackage{mathtools}
+\usepackage{caption}
+\usepackage{enumerate}	
+\usepackage{enumitem}
+\usepackage{amsmath}
+%\usepackage{xtab}
+\usepackage{longtable}
+\usepackage{multirow}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{hyperref}
+%\usepackage[framemethod=tikz]{mdframed}
+\usepackage{listings}
+    %\usepackage[latin1]{inputenc}                                 %%
+    \usepackage{color}                                            %%
+    \usepackage{array}                                            %%
+    \usepackage{longtable}                                        %%
+    \usepackage{calc}                                             %%
+    \usepackage{multirow}                                         %%
+    \usepackage{hhline}                                           %%
+    \usepackage{ifthen}                                           %%
+  %optionally (for landscape tables embedded in another document): %%
+    \usepackage{lscape}     
+
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+
+
+%\usepackage{stmaryrd}
+
+
+%\usepackage{wasysym}
+%\newcounter{MYtempeqncnt}
+\DeclareMathOperator*{\Res}{Res}
+%\renewcommand{\baselinestretch}{2}
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+
+\renewcommand\thesectiondis{\arabic{section}}
+\renewcommand\thesubsectiondis{\thesectiondis.\arabic{subsection}}
+\renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%\lstset{
+%language=C,
+%frame=single, 
+%breaklines=true
+%}
+
+%\lstset{
+	%%basicstyle=\small\ttfamily\bfseries,
+	%%numberstyle=\small\ttfamily,
+	%language=Octave,
+	%backgroundcolor=\color{white},
+	%%frame=single,
+	%%keywordstyle=\bfseries,
+	%%breaklines=true,
+	%%showstringspaces=false,
+	%%xleftmargin=-10mm,
+	%%aboveskip=-1mm,
+	%%belowskip=0mm
+%}
+
+%\surroundwithmdframed[width=\columnwidth]{lstlisting}
+\def\inputGnumericTable{}                                 %%
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\begin{document}
+%
+\tikzstyle{block} = [rectangle, draw,
+    text width=3em, text centered, minimum height=3em]
+\tikzstyle{sum} = [draw, circle, node distance=3cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}{Definition}[section]
+%\newtheorem{algorithm}{Algorithm}[section]
+%\newtheorem{cor}{Corollary}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+
+\bibliographystyle{IEEEtran}
+%\bibliographystyle{ieeetr}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\ztrans}{\overset{\mathcal{Z}}{ \rightleftharpoons}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\left\Vert#1\right\Vert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\pd}[2]{\ensuremath{\frac{\partial #1}{\partial #2}}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\gauss}[2]{\mathcal{N}\ensuremath{\left(#1,#2\right)}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+%\numberwithin{equation}{section}
+%\numberwithin{problem}{subsection}
+%\numberwithin{definition}{subsection}
+\makeatletter
+\@addtoreset{figure}{section}
+\makeatother
+
+\let\StandardTheFigure\thefigure
+%\renewcommand{\thefigure}{\theproblem.\arabic{figure}}
+\renewcommand{\thefigure}{\thesection}
+
+
+%\numberwithin{figure}{subsection}
+
+%\numberwithin{equation}{subsection}
+%\numberwithin{equation}{section}
+%\numberwithin{equation}{problem}
+%\numberwithin{problem}{subsection}
+\numberwithin{problem}{section}
+%%\numberwithin{definition}{subsection}
+%\makeatletter
+%\@addtoreset{figure}{problem}
+%\makeatother
+\makeatletter
+\@addtoreset{table}{section}
+\makeatother
+
+\let\StandardTheFigure\thefigure
+\let\StandardTheTable\thetable
+\let\vec\mathbf
+\numberwithin{equation}{section}
+
+\vspace{3cm}
+
+
+\title{%Convex Optimization in Python
+	Random Numbers
+}
+%\title{
+%	\logo{Matrix Analysis through Octave}{\begin{center}\includegraphics[scale=.24]{tlc}\end{center}}{}{HAMDSP}
+%}
+
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+%\title{Matrix Analysis through Octave}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{JARPULA BHANU PRASAD - AI21BTECH11015}
+\maketitle
+
+\tableofcontents
+
+\bigskip
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{abstract}
+This manual provides a simple introduction to digital signal processing.
+\end{abstract}
+%%
+\section{Software installation}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item Run the following commands.
+\begin{lstlisting}
+sudo apt-get update
+sudo apt-get install libffi-dev libsndfile1 python3-scipy python3-numpy python3-matplotlib
+sudo pip install cffi pysoundfile
+\end{lstlisting}
+\end{enumerate}
+
+\section{Digital Filter}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item Download the sound file from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/soundfiles/Sound_Noise.wav
+\end{lstlisting}
+
+\item You will find a spectogram at https://academo.org/demos/spectrum-analyzer. Upload the sound file that you downloaded in problem 2.1 in the spectrogram and play. Observe the spectogram. What do you find?
+\solution There are a lot of yellow lines betweeen 440Hz to 5.1KHz. These represent the synthesizer key tones. Also, the key strokes are audible along with background noise.
+
+\item Write the python code for removal of out of band nosie and execute the code.
+\solution Download and run the following code.
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/2.3_noise.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+	python3 2.3_noise.py
+\end{lstlisting}
+
+\item The output of the python scripy in problem 2.3 is the audio file Sound\_With\_ReducedNoise.wav. Play the file in the spectogram in problem 2.2. What do you observe?\\
+\solution The key strokes as well as background noise is subdued in the audio. Also the signal is blank for frequencies above 5.1KHz.
+\end{enumerate}
+
+
+\section{Difference Equation}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item Let 
+\begin{align}
+	x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}
+\end{align}
+Sketch x(n).\\
+\solution Download and run the following code.Below code plots fig\eqref{fig:3.1}
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/3.1.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+	python3 3.1.py
+\end{lstlisting}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{./figs/3.1.png}
+    \caption{Sketch of $x(n)$}
+    \label{fig:3.1}
+\end{figure}
+
+\item Let
+	\begin{align}\label{3.2}
+		y(n) + \frac{1}{2}y(n-1) = x(n)+x(n-2),
+		y(n)=0,n<0
+	\end{align}
+Sketech y(n).\\
+\solution Download and run the following code.Below code plots fig\eqref{fig:3.2}
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/3.2.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+	python3 3.2.py
+\end{lstlisting}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{./figs/3.2.png}
+    \caption{Sketch of $x(n)$ and $y(n)$}
+    \label{fig:3.2}
+\end{figure}
+
+\end{enumerate}
+
+\section{$Z$-transform}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item The Z-transform of $x(n)$ is defined as 
+\begin{align}\label{4.1}
+	X(z) = \mathcal{Z}\cbrak{x(n)} = \sum_{n=-\infty}^\infty x(n) z^{-n}
+\end{align}
+Show that
+\begin{align}\label{4.2}
+	\mathcal{Z}\cbrak{x(n-1)} = z^{-1}X(z)
+\end{align}
+and find
+\begin{align}
+	\mathcal{Z}\cbrak{x(n-k)}
+\end{align}
+\solution From \eqref{4.1}
+\begin{align}
+	\mathcal{Z}\cbrak{x(n-k)} &= \sum_{n=-\infty}^\infty x(n-1)z^{-n}\\
+	&= \sum_{n=-\infty}^\infty x(n)z^{-n-1}= z^{-1}\sum_{n=-\infty}^\infty x(n)z^{-n}
+\end{align}
+resulting in \eqref{4.2}. Similarly, it can be shown that 
+\begin{align}\label{4.6}
+	\mathcal{Z}\cbrak{x(n-k)} = z^{-k}X(z)
+\end{align}
+
+
+\item Find
+%
+\begin{equation}\label{4.7}
+H(z) = \frac{Y(z)}{X(z)}
+\end{equation}
+%
+from  \eqref{3.2} assuming that the $Z$-transform is a linear operation.
+\\
+\solution  Applying \eqref{4.6} in \eqref{3.2},
+\begin{align}
+Y(z) + \frac{1}{2}z^{-1}Y(z) &= X(z)+z^{-2}X(z)
+\\
+\implies \frac{Y(z)}{X(z)} &= \frac{1 + z^{-2}}{1 + \frac{1}{2}z^{-1}}
+\label{eq:freq_resp}
+\end{align}
+%
+\item Find the Z transform of 
+\begin{equation}
+\delta(n)
+=
+\begin{cases}
+1 & n = 0
+\\
+0 & \text{otherwise}
+\end{cases}
+\end{equation}
+and show that the $Z$-transform of
+\begin{equation}
+\label{eq:unit_step}
+u(n)
+=
+\begin{cases}
+1 & n \ge 0
+\\
+0 & \text{otherwise}
+\end{cases}
+\end{equation}
+is
+\begin{equation}
+U(z) = \frac{1}{1-z^{-1}}, \quad \abs{z} > 1
+\end{equation}
+\solution It is easy to show that
+\begin{equation}
+\delta(n) \ztrans 1
+\end{equation}
+and from \eqref{eq:unit_step},
+\begin{align}
+U(z) &= \sum _{n= 0}^{\infty}z^{-n}
+\\
+&=\frac{1}{1-z^{-1}}, \quad \abs{z} > 1
+\end{align}
+using the fomula for the sum of an infinite geometric progression.
+%
+\item Show that 
+\begin{equation}
+\label{eq:anun}
+a^nu(n) \ztrans \frac{1}{1-az^{-1}} \quad \abs{z} > \abs{a}
+\end{equation}
+\solution \begin{align}
+	a^nu(n) &\ztrans \sum_{n=0}^\infty (az^{-1})^n\\
+	& =\frac{1}{1-az^{-1}} \quad \abs{z} > \abs{a}
+\end{align}
+%
+\item 
+Let
+\begin{equation}
+H\brak{e^{\j \omega}} = H\brak{z = e^{\j \omega}}.
+\end{equation}
+Plot $\abs{H\brak{e^{\j \omega}}}$.  Comment.  $H(e^{\j \omega})$ is
+known as the {\em Discret Time Fourier Transform} (DTFT) of $x(n)$.
+\\
+\solution Download and run the following code. The following code plots Fig. \ref{fig:dtft}.
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/4.5.py
+\end{lstlisting}
+run the above code using the command 
+\begin{lstlisting}
+	python3 4.5.py
+\end{lstlisting}
+We observe that $\abs{H\brak{e^{\j \omega}}}$ is periodic with fundamental period $2\pi$.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{./figs/4.5.png}
+\caption{$\abs{H\brak{e^{\j\omega}}}$}
+\label{fig:dtft}
+\end{figure}
+
+\end{enumerate}
+
+\section{Impulse Response}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item \label{prob:impulse_resp}
+Find an expression for $h(n)$ using $H(z)$, given that 
+%in Problem \ref{eq:ztransab} and \eqref{eq:anun}, given that
+\begin{equation}
+\label{eq:impulse_resp}
+h(n) \ztrans H(z)
+\end{equation}
+and there is a one to one relationship between $h(n)$ and $H(z)$. $h(n)$ is known as the {\em impulse response} of the
+system defined by \eqref{3.2}.
+\\
+\solution From \eqref{eq:freq_resp},
+\begin{align}
+H(z) &= \frac{1}{1 + \frac{1}{2}z^{-1}} + \frac{ z^{-2}}{1 + \frac{1}{2}z^{-1}}
+\\
+\implies h(n) &= \brak{-\frac{1}{2}}^{n}u(n) + \brak{-\frac{1}{2}}^{n-2}u(n-2)
+\end{align}
+using \eqref{eq:anun} and \eqref{4.6}.
+\item Sketch $h(n)$. Is it bounded? Convergent? 
+\\
+\solution Download and run the following code.The following code plots Fig. \ref{fig:hn}.
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/5.2.py
+\end{lstlisting}
+run the above code using the command.
+\begin{lstlisting}
+	python3 5.2.py
+\end{lstlisting}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{./figs/5.2.png}
+\caption{$h(n)$ as the inverse of $H(z)$}
+\label{fig:hn}
+\end{figure}
+$h(n)$ is bounded and convergent.
+%
+\item The system with $h(n)$ is defined to be stable if
+\begin{equation}
+\sum_{n=-\infty}^{\infty}h(n) < \infty
+\end{equation}
+Is the system defined by \eqref{3.2} stable for the impulse response in \eqref{eq:impulse_resp}?\\
+%
+\solution Note that
+\begin{align}
+	\sum_{n=-\infty}^\infty h(n) &= \sum_{n=-\infty}^\infty \brak{-\frac{1}{2}}^nu(n)+\brak{-\frac{1}{2}}^{n-2}u(n-2)\\
+	&= 2\brak{\frac{1}{1+\frac{1}{2}}} = \frac{4}{3}
+\end{align}
+Thus, the given system is stable.
+
+\item Compute and sketch $h(n)$ using 
+\begin{equation}
+\label{eq:iir_filter_h}
+h(n) + \frac{1}{2}h(n-1) = \delta(n) + \delta(n-2), 
+\end{equation}
+%
+This is the definition of $h(n)$.
+\\
+\solution The following code plots Fig. \ref{fig:hndef}. Note that this is the same as Fig. 
+\ref{fig:hn}. 
+%
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/5.4.py
+\end{lstlisting}
+run the above code using the command.
+\begin{lstlisting}
+	python3 5.4.py
+\end{lstlisting}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{./figs/5.4.png}
+\caption{$h(n)$ from the definition}
+\label{fig:hndef}
+\end{figure}
+%
+\item Compute 
+%
+\begin{equation}
+\label{eq:convolution}
+y(n) = x(n)*h(n) = \sum_{n=-\infty}^{\infty}x(k)h(n-k)
+\end{equation}
+%
+Comment. The operation in \eqref{eq:convolution} is known as
+{\em convolution}.
+%
+\\
+\solution The following code plots Fig. \ref{fig:ynconv}. Note that this is the same as 
+$y(n)$ in  Fig. 
+\ref{fig:3.2}. 
+%
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/5.5.py
+\end{lstlisting}
+run the above code using the command.
+\begin{lstlisting}
+	python3 5.5.py
+\end{lstlisting}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{./figs/5.5.png}
+\caption{$y(n)$ from the definition of convolution}
+\label{fig:ynconv}
+\end{figure}
+\item Show that
+\begin{equation}
+y(n) =  \sum_{n=-\infty}^{\infty}x(n-k)h(k)
+\end{equation}
+\solution from \ref{eq:convolution}, we substitute $k := n-k$ to get
+\begin{align}
+	y(n) &= \sum_{k=-\infty}^\infty x(k)h(n-k)\\
+	&= \sum_{n-k=-\infty}^\infty x(n-k)h(k)\\
+	&= \sum_{k=-\infty}^\infty x(n-k)h(k)
+\end{align}
+
+\end{enumerate}
+
+\section{DFT and FFT}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item
+Compute
+\begin{equation}
+X(k) \define \sum _{n=0}^{N-1}x(n) e^{-\j2\pi kn/N}, \quad k = 0,1,\dots, N-1
+\end{equation}
+and $H(k)$ using $h(n)$.\\
+\solution
+
+\item Compute 
+\begin{equation}
+Y(k) = X(k)H(k)
+\end{equation}
+\solution
+
+\item Compute
+\begin{equation}
+ y\brak{n}={\frac {1}{N}}\sum _{k=0}^{N-1}Y\brak{k}\cdot e^{\j 2\pi kn/N},\quad n = 0,1,\dots, N-1
+\end{equation}
+\\
+\solution The following code plots Fig. \ref{fig:ynconv}. Note that this is the same as 
+$y(n)$ in  Fig. 
+\ref{fig:3.2}. 
+%
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/gadepall/EE1310/master/filter/codes/yndft.py
+\end{lstlisting}
+% \begin{figure}[!ht]
+% \centering
+% \includegraphics[width=\columnwidth]{./figs/yndft}
+% \caption{$y(n)$ from the DFT}
+% \label{fig:yndft}
+% \end{figure}
+\item Repeat the previous exercise by computing $X(k), H(k)$ and $y(n)$ through FFT and 
+IFFT.\\
+\solution
+
+\item Wherever possible, express all the above equations as matrix equations.\\
+\solution
+
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item 
+
+\end{enumerate}
+
+\end{document}

@@ -331,6 +331,25 @@ run the above code using the command
     \label{fig:3.2}
 \end{figure}
 
+\item Repeat the above exercise using C code.\\
+\solution Download and run the following code.Below code plots fig\eqref{fig:3.3}
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/3.3.c
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/3.3_plot.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+	gcc 3.3.c -o 3.3.out
+	python3 3.3_plot.py
+\end{lstlisting}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{./figs/3.3_plot.png}
+    \caption{Sketch of $y(n)$}
+    \label{fig:3.3}
+\end{figure}
+
+
 \end{enumerate}
 
 \section{$Z$-transform}

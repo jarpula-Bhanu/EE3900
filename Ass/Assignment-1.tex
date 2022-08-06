@@ -271,7 +271,7 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/soundfiles/Sound_Nois
 \item You will find a spectogram at https://academo.org/demos/spectrum-analyzer. Upload the sound file that you downloaded in problem 2.1 in the spectrogram and play. Observe the spectogram. What do you find?
 \solution There are a lot of yellow lines betweeen 440Hz to 5.1KHz. These represent the synthesizer key tones. Also, the key strokes are audible along with background noise.
 
-\item Write the python code for removal of out of band nosie and execute the code.
+\item Write the python code for removal of out of band nosie and execute the code.\label{2.3}\\
 \solution Download and run the following code.
 \begin{lstlisting}
 wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/2.3_noise.py
@@ -639,7 +639,7 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/6.4.py
 % \end{lstlisting}
 and execute it using
 \begin{lstlisting}
-$ python3 6_4.py
+$ python3 6.4.py
 \end{lstlisting}
 Observe that Fig. \eqref{fig:y-n-fft} is the same as $y(n)$ in Fig. \eqref{fig:3.2}.
 \begin{figure}
@@ -681,31 +681,70 @@ i.e. $W_{jk} = \omega^{jk}$, $0 \leq j, k < N$. Hence, we can write any DFT equa
 	\mtx{Y} = \mtx{H}\cdot\mtx{X} = \brak{\mtx{W}\mtx{h}}\cdot\brak{\mtx{W}\mtx{x}}
 \end{align}
 \end{enumerate}
-% \section{Exercises}
-% \noindent Answer the following questions by looking at the python code in Problem \ref{prob:output}.
-% \begin{enumerate}[label=\thesection.\arabic*]
-% \item
-% The command
-% \begin{lstlisting}
-% output_signal = signal.lfilter(b, a, input_signal)
-% \end{lstlisting}
-% in Problem \ref{prob:output} is executed through the following difference equation
-% \begin{equation}
-% \label{eq:iir_filter_gen}
-%  \sum _{m=0}^{M}a\brak{m}y\brak{n-m}=\sum _{k=0}^{N}b\brak{k}x\brak{n-k}
-% \end{equation}
-% where the input signal is $x(n)$ and the output signal is $y(n)$ with initial values all 0. Replace
-% \textbf{signal.filtfilt} with your own routine and verify.
-% \item Repeat all the exercises in the previous sections for the above $a$ and $b$.
-% \item What is the sampling frequency of the input signal?
-% \solution
-% Sampling frequency $f_s = 44.1$ kHZ.
-% \item
-% What is type, order and  cutoff frequency of the above Butterworth filter?
-% \solution
-% The given Butterworth filter is low pass with order 4 and cutoff frequency 4 kHz.
-% \item
-% Modifying the code with different input parameters and to get the best possible output.
-% \end{enumerate}
+
+\section{Exercises}
+Answer the following questions by looking at the python code in Problem \ref{2.3}.
+\begin{enumerate}[label=\thesection.\arabic*]
+\item
+The command
+\begin{lstlisting}
+	output_signal = signal.lfilter(b, a, input_signal)
+	\end{lstlisting}
+in Problem \ref{2.3} is executed through the following difference equation
+\begin{equation}
+\label{eq:iir_filter_gen}
+ \sum _{m=0}^{M}a\brak{m}y\brak{n-m}=\sum _{k=0}^{N}b\brak{k}x\brak{n-k}
+\end{equation}
+%
+where the input signal is $x(n)$ and the output signal is $y(n)$ with initial values all 0. Replace
+\textbf{signal.filtfilt} with your own routine and verify.\\
+\solution  \solution Download the code from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.1.py
+\end{lstlisting}
+and execute it using
+\begin{lstlisting}
+$ python3 7.1.py
+\end{lstlisting}
+%
+\item Repeat all the exercises in the previous sections for the above $a$ and $b$.\\
+\solution The filter frequency  response is plotted at 
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.2.1.py
+\end{lstlisting}
+The impulse response function is plotted at 
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.2.2.py
+\end{lstlisting}
+We see that $h(n)$ is bounded and convergent.Also,since 1 is not a pole of the transfer function, the system is stable.\\
+run the above codes using
+\begin{lstlisting}
+	python3 7.2.1.py
+	python3 7.2.2.py
+\end{lstlisting}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{./figs/7.2.1.png}
+\caption{Filter frequency response}
+\label{fig:7.2.1}
+\includegraphics[width=\columnwidth]{./figs/7.2.2.png}
+\caption{Plot of $h(n)$}
+\label{fig:7.2.2}
+\end{figure}
+\item What is the sampling frequency of the input signal?
+\\
+\solution
+Sampling frequency(fs)=44.1kHZ.
+\item
+What is type, order and  cutoff-frequency of the above butterworth filter
+\\
+\solution
+The given butterworth filter is low pass with order=4 and cutoff-frequency=4kHz.
+%
+\item
+Modifying the code with different input parameters and to get the best possible output.\\
+%
+\solution A better filtering was found on setting te order of the filter to be 7
+\end{enumerate}
 
 \end{document}

@@ -10,6 +10,7 @@ h[2] = -0.5*h[1] + 1
 for n in range(3,k-1):
 		h[n] = -0.5*h[n-1]
 
+print(h)
 #subplots
 plt.stem(range(0,k),h)
 plt.title('Impulse Response Definition')

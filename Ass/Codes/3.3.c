@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(){
-    float x[6]={1.0,2.0,3.0,4.0,2.0,1.0},y[20]={0};
+    float x[6]={1.0,2.0,3.0,4.0,2.0,1.0},y[20];
     int k=20;
 
     FILE* fp;
@@ -20,9 +20,9 @@ int main(){
     for(int i=0;i<20;i++){
         printf("%f\n",y[i]);
         fprintf(fp,"%f\n",y[i]);
-
     }
 
+    fclose(fp);
 
     return 0;
     

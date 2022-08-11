@@ -6,6 +6,48 @@
 %\usepackage{multicolumn}
 %\usepackage{subcaption}
 %\doublespacing
+\usepackage{polynom}
+\makeatletter
+\def\pld@CF@loop#1+{%
+    \ifx\relax#1\else
+        \begingroup
+          \pld@AccuSetX11%
+          \def\pld@frac{{}{}}\let\pld@symbols\@empty\let\pld@vars\@empty
+          \pld@false
+          #1%
+          \let\pld@temp\@empty
+          \pld@AccuIfOne{}{\pld@AccuGet\pld@temp
+                            \edef\pld@temp{\noexpand\pld@R\pld@temp}}%
+           \pld@if \pld@Extend\pld@temp{\expandafter\pld@F\pld@frac}\fi
+           \expandafter\pld@CF@loop@\pld@symbols\relax\@empty
+           \expandafter\pld@CF@loop@\pld@vars\relax\@empty
+           \ifx\@empty\pld@temp
+               \def\pld@temp{\pld@R11}%
+           \fi
+          \global\let\@gtempa\pld@temp
+        \endgroup
+        \ifx\@empty\@gtempa\else
+            \pld@ExtendPoly\pld@tempoly\@gtempa
+        \fi
+        \expandafter\pld@CF@loop
+    \fi}
+\def\pld@CMAddToTempoly{%
+    \pld@AccuGet\pld@temp\edef\pld@temp{\noexpand\pld@R\pld@temp}%
+    \pld@CondenseMonomials\pld@false\pld@symbols
+    \ifx\pld@symbols\@empty \else
+        \pld@ExtendPoly\pld@temp\pld@symbols
+    \fi
+    \ifx\pld@temp\@empty \else
+        \pld@if
+            \expandafter\pld@IfSum\expandafter{\pld@temp}%
+                {\expandafter\def\expandafter\pld@temp\expandafter
+                    {\expandafter\pld@F\expandafter{\pld@temp}{}}}%
+                {}%
+        \fi
+        \pld@ExtendPoly\pld@tempoly\pld@temp
+        \pld@Extend\pld@tempoly{\pld@monom}%
+    \fi}
+\makeatother
 \singlespacing
 \usepackage{csvsimple}
 \usepackage{amssymb}
@@ -46,6 +88,7 @@
 \usepackage{amsmath}
 %\usepackage{xtab}
 \usepackage{longtable}
+\usepackage{multicol}
 \usepackage{multirow}
 %\usepackage{algorithm}
 %\usepackage{algpseudocode}
@@ -291,7 +334,7 @@ run the above code using the command
 \begin{enumerate}[label=\thesection.\arabic*
 ,ref=\thesection.\theenumi]
 \item Let 
-\begin{align}
+\begin{align}\label{3.1}
 	x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}
 \end{align}
 Sketch x(n).\\
@@ -379,7 +422,26 @@ resulting in \eqref{4.2}. Similarly, it can be shown that
 	\mathcal{Z}\cbrak{x(n-k)} = z^{-k}X(z)
 \end{align}
 
+$\mathcal{Z}$- transform of $x(n)$ is 
 
+\begin{align}
+\mathcal{Z}\cbrak{x(n)} &= 1+2 z^{-1}+3 z^{-2} + 4 z^{-3} + 2 z^{-4} + z^{-5}
+\end{align}
+
+\begin{align}
+\mathcal{Z}\cbrak{x(n-k)} &= z^{-k}(1+2 z^{-1}+3 z^{-2} +\\&\hspace*{10mm} 4 z^{-3} + 2 z^{-4} + z^{-5})\\
+\mathcal{Z}\cbrak{x(n-k)} &= z^{-k}+2 z^{-(k+1)}+3 z^{-(k+2)} \\&+ 4 z^{-(k+3)} + 2 z^{-(k+4)} + z^{-(k+5)}
+\end{align}
+
+\item Obtain $X(z)$ for $x(n)$ in problem \eqref{3.1}\\
+\solution \begin{align}
+	\mathcal{Z}\cbrak{x(n)} &= 1+2 z^{-1}+3 z^{-2} + 4 z^{-3} + 2 z^{-4} + z^{-5}
+	\end{align}
+	
+	\begin{align}
+	\mathcal{Z}\cbrak{x(n-k)} &= z^{-k}(1+2 z^{-1}+3 z^{-2} +\\&\hspace*{10mm} 4 z^{-3} + 2 z^{-4} + z^{-5})\\
+	\mathcal{Z}\cbrak{x(n-k)} &= z^{-k}+2 z^{-(k+1)}+3 z^{-(k+2)} \\&+ 4 z^{-(k+3)} + 2 z^{-(k+4)} + z^{-(k+5)}
+	\end{align}
 \item Find
 %
 \begin{equation}\label{4.7}
@@ -389,7 +451,7 @@ H(z) = \frac{Y(z)}{X(z)}
 from  \eqref{3.2} assuming that the $Z$-transform is a linear operation.
 \\
 \solution  Applying \eqref{4.6} in \eqref{3.2},
-\begin{align}
+\begin{align}\label{4.9}
 Y(z) + \frac{1}{2}z^{-1}Y(z) &= X(z)+z^{-2}X(z)
 \\
 \implies \frac{Y(z)}{X(z)} &= \frac{1 + z^{-2}}{1 + \frac{1}{2}z^{-1}}
@@ -467,12 +529,93 @@ We observe that $\abs{H\brak{e^{\j \omega}}}$ is periodic with fundamental perio
 \label{fig:dtft}
 \end{figure}
 
+\begin{align}
+	H\brak{e^{\j \omega}} &= \frac{1 + e^{-2\j\omega}}{1 + \frac12 e^{-\j\omega}} \\
+	\implies \abs{H\brak{e^{\j \omega}}} &= \frac{\abs{1 + \cos2\omega - \j\sin2\omega}}{\abs{1 + \frac12 \cos\omega - \frac12 \sin\omega}} \\
+	&= \sqrt{\frac{(1 + \cos2\omega)^2 + (\sin2\omega)^2}{(1 + \frac12 \cos\omega)^2 + (\frac12 \sin\omega)^2}} \\
+	&= \sqrt{\frac{2 + 2\cos2\omega}{\frac54 + \cos\omega}} \\
+	&= \sqrt{\frac{2(2\cos^2\omega)4}{5 + 4\cos\omega} } \\
+	&= \frac{4\abs{\cos\omega}}{\sqrt{5 + 4\cos\omega}}
+\end{align}
+
+period of $\abs{cos \omega}$ is $\pi$ and period of $\sqrt{5 + 4\cos \omega}$ is $2\pi$.\\
+Now period of $\abs{H\brak{e^{\j \omega}}}$ is $\frac{LCM(\pi,2\pi)}{HCF(\pi,2\pi)}$ = $\frac{2\pi}{1}$ = $2\pi$\\
+
+\item Express $h(n)$ in terms of $H(e^{j\omega})$\\
+\solution $h(n)$ is given by the inverse DTFT of $H(e^{j\omega})$
+\begin{align}
+	h(n) &= \frac{1}{2\pi}\int_{-\pi}^\pi H(e^{j\omega})e^{j\omega n}d\omega\\
+	&=\frac{1}{2\pi}\sum_{n=-\infty}^\infty\int_{-\pi}^\pi h(k)e^{-j\omega k} e^{j\omega n} d\omega \\
+	&=\frac{1}{2\pi}\sum_{n=-\infty}^\infty h(k)\int_{-\pi}^{\pi}e^{j\omega(n-k)}d\omega \\
+	&= \frac{1}{2\pi}\sum_{n=-\infty}^\infty h(k) 2\pi \delta[n-k]\\
+	&=h(n)
+\end{align}
+Since 
+\begin{align}
+	\int_{-\pi}^{\pi}e^{j\omega n}d\omega &=2\pi \delta[n]\\
+	and \\
+	\delta[n-k]&=
+	\begin{cases}
+		1 & n =k
+		\\
+		0 & \text{otherwise}
+	\end{cases}
+\end{align}
+
+
+
 \end{enumerate}
 
 \section{Impulse Response}
 
 \begin{enumerate}[label=\thesection.\arabic*
 ,ref=\thesection.\theenumi]
+\item Using long division, find 
+\begin{align}
+	h(n) , \hspace*{5mm} n<5
+\end{align}
+for $H(z)$ in \ref{4.9}\\
+\solution \begin{equation}
+	H(z) = \frac{1 + z^{-2}}{1 + \frac{1}{2} z^{-1}}
+\end{equation}
+Substitute $z^{-1} = x$
+
+\polylongdiv{1+x^2}{1+\frac{1}{2} x}
+
+\begin{align}
+	&\implies 1 + z^{-2} = \brak{1 + \frac{1}{2} z^{-1}}\brak{-4 + 2z^{-1}} + 5 \\
+	&\implies H(z) = -4 + 2z^{-1} + \frac{5}{1 + \frac{1}{2} z^{-1}}
+\end{align}
+
+On applying the inverse $Z$-transform on both sides of the equation
+\begin{align}
+	H(z) &\ztrans h(n) \\
+	-4 &\ztrans -4\delta(n) \\
+	2z^{-1} &\ztrans 2\delta(n - 1) \\
+	\frac{5}{1 + \frac{1}{2} z^{-1}} &\ztrans 5\brak{-\frac{1}{2}}^n u(n) \\
+\end{align}
+
+Therefore,
+\begin{equation}
+	h(n) = -4\delta(n) + 2\delta(n - 1) + 5\brak{-\frac{1}{2}}^n u(n)
+\end{equation}
+
+Download the following Python code that plots Fig. \ref{fig-5.1}.
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/5.1.py
+\end{lstlisting}
+
+Run the code by executing
+\begin{lstlisting}
+	python 5.1.py
+\end{lstlisting}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=\columnwidth]{./figs/5.1.png}
+	\caption{Plot of $h(n)$}
+	\label{fig-5.1}	
+\end{figure} 
 \item \label{prob:impulse_resp}
 Find an expression for $h(n)$ using $H(z)$, given that 
 %in Problem \ref{eq:ztransab} and \eqref{eq:anun}, given that
@@ -490,7 +633,7 @@ H(z) &= \frac{1}{1 + \frac{1}{2}z^{-1}} + \frac{ z^{-2}}{1 + \frac{1}{2}z^{-1}}
 \implies h(n) &= \brak{-\frac{1}{2}}^{n}u(n) + \brak{-\frac{1}{2}}^{n-2}u(n-2)
 \end{align}
 using \eqref{eq:anun} and \eqref{4.6}.
-\item Sketch $h(n)$. Is it bounded? Convergent? 
+\item Sketch $h(n)$. Is it bounded? Justify theoretically.
 \\
 \solution Download and run the following code.The following code plots Fig. \ref{fig:hn}.
 \begin{lstlisting}
@@ -506,8 +649,30 @@ run the above code using the command.
 \caption{$h(n)$ as the inverse of $H(z)$}
 \label{fig:hn}
 \end{figure}
-$h(n)$ is bounded and convergent.
+From the plot, it is clear that $h(n)$ is bounded. Theoretically,
+	\begin{align}
+		\abs{u(n)} &\le 1 \\
+		\abs{\brak{-\frac12}^n} &\le 1 \\
+		\implies \abs{\brak{-\frac12}^n u(n)} &\le 1
+	\end{align}
+	
+	Similarly,
+	\begin{align}
+		\abs{\brak{-\frac12}^{n-2} u(n-2)} &\le 1 \\
+		\implies h(n) &\le 2
+	\end{align}
+	
+	Therefore $h(n)$ is bounded.
 %
+\item Convergent? Justify using the ratio test.\label{bounded}\\
+\solution The ratio test for convergence
+\begin{align}
+	\lim_{n \to \infty} \abs{\frac{h(n+1)}{h(n)}} &= \lim_{n \to \infty} \abs{\frac{\brak{-\frac12}^{n-1} \brak{\frac14 + 1}}{\brak{-\frac12}^{n-2} \brak{\frac14 + 1}}} \\
+	&= \lim_{n \to \infty} \abs{-\frac12} \\
+	&= \frac{1}{2} < 1
+\end{align}
+
+Therefore, $h(n)$ is convergent which implies that it is bounded.
 \item The system with $h(n)$ is defined to be stable if
 \begin{equation}
 \sum_{n=-\infty}^{\infty}h(n) < \infty
@@ -520,6 +685,16 @@ Is the system defined by \eqref{3.2} stable for the impulse response in \eqref{e
 	&= 2\brak{\frac{1}{1+\frac{1}{2}}} = \frac{4}{3}
 \end{align}
 Thus, the given system is stable.
+\item Verify the above result using a python code.\\
+\solution Download the following code.
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/5.6.py
+\end{lstlisting}
+
+Run the code by executing
+\begin{lstlisting}
+	python 5.6.py
+\end{lstlisting}
 
 \item Compute and sketch $h(n)$ using 
 \begin{equation}
@@ -574,7 +749,51 @@ run the above code using the command.
 \caption{$y(n)$ from the definition of convolution}
 \label{fig:ynconv}
 \end{figure}
-\item Show that
+\item Express the above convolution using a Teoplitz matrix.\\
+\solution  Let 
+\begin{align}
+	\vec{x} = \myvec{1 \\ 2 \\ 3 \\ 4 \\ 2 \\ 1} \qquad
+	\vec{h} = \myvec{1 \\ -0.5 \\ 1.25 \\ -0.62 \\ 0.31 \\ -0.16}
+\end{align}
+
+Their convolution is given by the product of the following Toeplitz matrix $\vec{T}$
+\begin{align}
+	&\myvec{
+		1 & 0 & 0 & 0 & 0 & 0 \\
+		-0.5 & 1 & 0 & 0 & 0 & 0 \\
+		1.25 & -0.5 & 1 & 0 & 0 & 0 \\
+		-0.62 & 1.25 & -0.5 & 1 & 0 & 0 \\
+		0.31 & -0.62 & 1.25 & -0.5 & 1 & 0 \\
+		-0.16 & 0.31 & -0.62 & 1.25 & -0.5 & 1 \\
+		0 & -0.16 & 0.31 & -0.62 & 1.25 & -0.5 \\
+		0 & 0 & -0.16 & 0.31 & -0.62 & 1.25 \\
+		0 & 0 & 0 & -0.16 & 0.31 & -0.62 \\
+		0 & 0 & 0 & 0 & -0.16 & 0.31 \\
+		0 & 0 & 0 & 0 & 0 & -0.16 \\
+	} 
+\end{align}
+and $\vec{x}$
+
+\begin{align}
+	&\vec{y} = \vec{x} \circledast \vec{h} = \vec{Tx} = \myvec{1 \\ 1.5 \\ 3.25 \\ 4.38 \\ 2.81 \\ 3.59 \\ 0.12 \\ 0.78 \\ -0.62 \\ 0 \\ -0.16}
+\end{align}
+Download the following code .
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/5.9.py
+\end{lstlisting}
+
+Run the code by executing
+\begin{lstlisting}
+	python 5.9.py
+\end{lstlisting}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=\columnwidth]{./figs/5.5_conv.png}
+	\caption{Plot of the convolution of $x(n)$ and $h(n)$}
+	\label{fig-5.5-toeplitz}	
+\end{figure}
+
+\item Show that 
 \begin{equation}
 y(n) =  \sum_{n=-\infty}^{\infty}x(n-k)h(k)
 \end{equation}
@@ -700,6 +919,9 @@ i.e. $W_{jk} = \omega^{jk}$, $0 \leq j, k < N$. Hence, we can write any DFT equa
 \begin{align}
 	\mtx{Y} = \mtx{H}\cdot\mtx{X} = \brak{\mtx{W}\mtx{h}}\cdot\brak{\mtx{W}\mtx{x}}
 \end{align}
+\item Verify the above equation by generating the DFT matrix in python.\\
+\solution
+
 \end{enumerate}
 
 \section{Exercises}

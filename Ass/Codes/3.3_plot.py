@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-k = 20
+k = 20 
 
 y = np.loadtxt("3.3.dat")
 plt.stem(range(0,k),y)

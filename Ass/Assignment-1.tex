@@ -570,34 +570,61 @@ Since
 
 \begin{enumerate}[label=\thesection.\arabic*
 ,ref=\thesection.\theenumi]
-\item Using long division, find 
+\item Using long division, find
 \begin{align}
-	h(n) , \hspace*{5mm} n<5
+	h(n), \quad n < 5
 \end{align}
-for $H(z)$ in \ref{4.9}\\
-\solution \begin{equation}
-	H(z) = \frac{1 + z^{-2}}{1 + \frac{1}{2} z^{-1}}
+for $H(z)$ in \eqref{eq:freq_resp}
+
+\solution 
+\begin{equation}
+	H(z) = \frac{1 + z^{-2}}{1 + \frac12 z^{-1}}
 \end{equation}
 Substitute $z^{-1} = x$
 
-\polylongdiv{1+x^2}{1+\frac{1}{2} x}
+\polylongdiv{1+x^2}{1+\frac12 x}
 
 \begin{align}
-	&\implies 1 + z^{-2} = \brak{1 + \frac{1}{2} z^{-1}}\brak{-4 + 2z^{-1}} + 5 \\
-	&\implies H(z) = -4 + 2z^{-1} + \frac{5}{1 + \frac{1}{2} z^{-1}}
+	&\implies 1 + z^{-2} = \brak{1 + \frac12 z^{-1}}\brak{-4 + 2z^{-1}} + 5 \\
+	&\implies H(z) = -4 + 2z^{-1} + \frac{5}{1 + \frac12 z^{-1}}
 \end{align}
 
-On applying the inverse $Z$-transform on both sides of the equation
+\begin{align}
+	\frac{5}{1 + \frac12 z^{-1}} &= 5 \brak{1 + \frac12 z^{-1}}^{-1} \\
+	&= 5 \sum_{n=0}^\infty \brak{-\frac{z^{-1}}{2}}^n
+\end{align}
+
+\begin{multline}
+	H(z) = -4 + 2z^{-1} + 5 - \frac{5}{2}z^{-1} + \frac{5}{4}z^{-2}\\ - \frac{5}{8}z^{-3}  + \frac{5}{16}z^{-4} - \frac{5}{32}z^{-5} + \cdots
+\end{multline}
+
+\begin{align}
+	H(z) = -4 + 2z^{-1}+5\brak{-\frac{1}{2}}^{n-2}  \text{for $n\ge2$} 
+\end{align}
+
+Therefore, by comparing coefficients
+\begin{align}
+	h(n) = 
+	\begin{cases}
+		1 & n = 0 \\
+		-\dfrac12 & n = 1 \\
+		\dfrac{5}{4} & n = 2 \\
+		-\dfrac{5}{8} & n = 3 \\
+		\dfrac{5}{16} & n = 4 \\
+	\end{cases}
+\end{align}
+
+Alternatively, on applying the inverse $Z$-transform on both sides of the equation
 \begin{align}
 	H(z) &\ztrans h(n) \\
 	-4 &\ztrans -4\delta(n) \\
 	2z^{-1} &\ztrans 2\delta(n - 1) \\
-	\frac{5}{1 + \frac{1}{2} z^{-1}} &\ztrans 5\brak{-\frac{1}{2}}^n u(n) \\
+	\frac{5}{1 + \frac12 z^{-1}} &\ztrans 5\brak{-\frac12}^n u(n) \\
 \end{align}
 
 Therefore,
 \begin{equation}
-	h(n) = -4\delta(n) + 2\delta(n - 1) + 5\brak{-\frac{1}{2}}^n u(n)
+	h(n) = -4\delta(n) + 2\delta(n - 1) + 5\brak{-\frac12}^n u(n)
 \end{equation}
 
 Download the following Python code that plots Fig. \ref{fig-5.1}.
@@ -875,7 +902,7 @@ run the above code using the command.
  \solution Download the code from
 \begin{lstlisting}
 wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/6.4.py
-% \end{lstlisting}
+\end{lstlisting}
 and execute it using
 \begin{lstlisting}
 $ python3 6.4.py
@@ -920,7 +947,22 @@ i.e. $W_{jk} = \omega^{jk}$, $0 \leq j, k < N$. Hence, we can write any DFT equa
 	\mtx{Y} = \mtx{H}\cdot\mtx{X} = \brak{\mtx{W}\mtx{h}}\cdot\brak{\mtx{W}\mtx{x}}
 \end{align}
 \item Verify the above equation by generating the DFT matrix in python.\\
-\solution
+\solution Download the code from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/6.6.py
+\end{lstlisting}
+and execute it using
+\begin{lstlisting}
+$ python3 6.6.py
+\end{lstlisting}
+
+The above code plots \eqref{fig:DFT matrix}
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/6.6.png}
+\caption{$y(n)$ using DFT matrix}
+\label{fig:DFT matrix}
+\end{figure}
 
 \end{enumerate}
 
@@ -940,7 +982,7 @@ in Problem \ref{2.3} is executed through the following difference equation
 %
 where the input signal is $x(n)$ and the output signal is $y(n)$ with initial values all 0. Replace
 \textbf{signal.filtfilt} with your own routine and verify.\\
-\solution  \solution Download the code from
+\solution Download the code from
 \begin{lstlisting}
 wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.1.py
 \end{lstlisting}
@@ -950,29 +992,86 @@ $ python3 7.1.py
 \end{lstlisting}
 %
 \item Repeat all the exercises in the previous sections for the above $a$ and $b$.\\
-\solution The filter frequency  response is plotted at 
+\solution For the given values, the difference equation is
+\begin{align}
+	&y(n) - \brak{4.44}y(n - 1) + \brak{8.78}y(n - 2) \nonumber \\
+	&- \brak{9.93}y(n - 3) + \brak{6.90}y(n - 4) \nonumber \\
+	&- \brak{2.93}y(n - 5) \nonumber + \brak{0.70}y(n - 6) \nonumber \\
+	&- \brak{0.07}y(n - 7) = \brak{5.02 \times 10^{-5}}x(n) \nonumber \\
+	&+ \brak{3.52 \times 10^{-4}}x(n - 1) + \brak{1.05 \times 10^{-3}}x(n - 2) \nonumber \\
+	&+ \brak{1.76 \times 10^{-3}}x(n - 3) + \brak{1.76 \times 10^{-3}}x(n - 4) \nonumber \\
+	&+ \brak{1.05 \times 10^{-3}}x(n - 5) + \brak{3.52 \times 10^{-4}}x(n - 6) \nonumber \\
+	&+ \brak{5.02 \times 10^{-5}}x(n - 7)
+\end{align}
+From \eqref{eq:iir_filter_gen}, we see that the transfer function can be written as follows
+\begin{align}
+	H(z) &= \frac{\sum_{k = 0}^{N}b(k)z^{-k}}{\sum_{k = 0}^{M}a(k)z^{-k}} \\
+		 &= \sum_{i}\frac{r(i)}{1 - p(i)z^{-1}} + \sum_{j}k(j)z^{-j}
+	\label{eq:trans-func}
+\end{align}
+where $r(i)$, $p(i)$, are called residues and poles respectively of the partial 
+fraction expansion of $H(z)$. $k(i)$ are the coefficients of the direct polynomial 
+terms that might be left over. We can now take the inverse $z$-transform of
+\eqref{eq:trans-func} and get using \eqref{eq:anun},
+\begin{align}
+	h(n) &= \sum_{i}r(i)[p(i)]^nu(n) + \sum_{j}k(j)\delta(n - j)
+	\label{eq:h-n-expr}
+\end{align}
+Substituting the values,
+\begin{align}
+	&h(n) = [\brak{2.76}\brak{0.55}^n \nonumber \\ 
+	&+ \brak{-1.05-1.84\j}\brak{0.57+0.16\j}^n \nonumber \\
+	&+ \brak{-1.05+1.84\j}\brak{0.57-0.16\j}^n \nonumber \\
+	&+ \brak{-0.53+0.08\j}\brak{0.63+0.32\j}^n \nonumber \\
+	&+ \brak{-0.53-0.08\j}\brak{0.63-0.32\j}^n \nonumber \\
+	&+ \brak{0.20+0.004\j}\brak{0.75+0.47\j}^n \nonumber \\
+	&+ \brak{0.20-0.004\j}\brak{0.75-0.47\j}^n]u(n) \nonumber \\
+	&+ \brak{-6.81 \times 10^{-4}}\delta(n)
+\end{align}
+The values $r(i)$, $p(i)$, $k(i)$ and thus the impulse response function are computed and plotted at
 \begin{lstlisting}
 wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.2.1.py
 \end{lstlisting}
-The impulse response function is plotted at 
+The filter frequency response is plotted at
 \begin{lstlisting}
-wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.2.2.py
+	wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.2.2.py
 \end{lstlisting}
-We see that $h(n)$ is bounded and convergent.Also,since 1 is not a pole of the transfer function, the system is stable.\\
-run the above codes using
+Observe that for a series $t_n = r^n$, $\frac{t_{n + 1}}{t_n} = r$.
+By the ratio test, $t_n$ converges if $|r| < 1$. We observe that for all $i$, 
+$|p(i)| < 1$ and so, as $h(n)$ is the sum of many convergent series,
+we see that $h(n)$ converges and is bounded. From \eqref{eq:z_trans},
+\begin{align}
+	\sum_{n = 0}^{\infty}h(n) = H(1) = \frac{\sum_{k = 0}^{N}b(k)}{\sum_{k = 0}^{M}a(k)} = 1 < \infty
+\end{align}
+Therefore, the system is stable. From
+Fig. \eqref{fig:butter-imp}, $h(n)$ is negligible after $n \geq 64$, and we
+can apply a 64-bit FFT to get y(n). The following code uses the DFT matrix
+to generate $y(n)$ in Fig. \eqref{fig:butter-out}.
 \begin{lstlisting}
-	python3 7.2.1.py
-	python3 7.2.2.py
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/7.2.3.py
 \end{lstlisting}
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\columnwidth]{./figs/7.2.1.png}
-\caption{Filter frequency response}
-\label{fig:7.2.1}
-\includegraphics[width=\columnwidth]{./figs/7.2.2.png}
-\caption{Plot of $h(n)$}
-\label{fig:7.2.2}
+The codes can be run all at once by typing
+\begin{lstlisting}
+$ python3 7.2.*.py
+\end{lstlisting}
+\begin{figure}[!htb]
+	\includegraphics[width=\columnwidth]{figs/7.2.1.png}
+	\caption{Plot of $h(n)$}
+	\label{fig:butter-imp}
 \end{figure}
+\begin{figure}[!htb]
+	\includegraphics[width=\columnwidth]{figs/7.2.2.png}
+	\caption{Filter frequency response}
+	\label{fig:butter-resp}
+\end{figure}
+\begin{figure}[!htb]
+	\includegraphics[width=\columnwidth]{figs/7.2.3.png}
+	\caption{Plot of $y(n)$}
+	\label{fig:butter-out}
+\end{figure}
+
+
+
 \item What is the sampling frequency of the input signal?
 \\
 \solution

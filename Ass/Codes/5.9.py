@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import linalg
 import matplotlib.pyplot as plt
 
 n = np.arange(14)
@@ -20,6 +21,8 @@ for i in range(nx+nh-1):
         
 y = topliz.dot(x)
 print(y)
+y1 = linalg.convolution_matrix(x, 6)
+print(y1)
 
 #plots
 plt.stem(range(0,nx+nh-1),y)

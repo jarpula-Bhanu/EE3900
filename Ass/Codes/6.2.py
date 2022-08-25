@@ -41,3 +41,4 @@ plt.grid()
 plt.savefig('../figs/6.2.png')
 plt.show()
 
+

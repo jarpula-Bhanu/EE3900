@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.fft import fft, ifft
 import matplotlib.pyplot as plt
 
 N = 14
@@ -9,7 +10,7 @@ hn2=np.pad(fn, (2,0), 'constant', constant_values=(0))
 h = hn1+hn2
 
 xtemp=np.array([1.0,2.0,3.0,4.0,2.0,1.0])
-x=np.pad(xtemp, (0,8), 'constant', constant_values=(0))
+x=np.pad(xtemp, (0,10), 'constant', constant_values=(0))
 
 X = np.zeros(N) + 1j*np.zeros(N)
 for k in range(0,N):
@@ -31,12 +32,22 @@ for k in range(0,N):
 
 #print(X)
 y = np.real(y)/N
+y_prev = np.loadtxt('3.3.dat', dtype='double')
+
 #plots
-plt.stem(range(0,N),y)
-plt.title('Filter Output using DFT')
+plt.stem(range(0,N),y,markerfmt='C0o')
+plt.stem(range(0,N),y_prev[:14],markerfmt='C1o')
+
+X_fft = fft(x)
+H_fft = fft(h)
+Y_fft = H_fft*X_fft
+y_ifft = ifft(Y_fft).real
+#plots
+plt.stem(range(0,14),y_ifft[:14],markerfmt='C2o')
 plt.xlabel('$n$')
 plt.ylabel('$y(n)$')
 plt.grid()# minor
+plt.legend(['From IDFT', 'From difference equation', 'From IFFT'])
 
 plt.savefig('../figs/6.3.png')
 plt.show()

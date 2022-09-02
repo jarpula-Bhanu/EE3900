@@ -964,6 +964,43 @@ The above code plots \eqref{fig:DFT matrix}
 \label{fig:DFT matrix}
 \end{figure}
 
+\item Compute the 8-point FFT in C.\\
+\solution Download the following C code 
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/6.7.c
+\end{lstlisting}
+run the above C code using the command
+\begin{lstlisting}
+	$ gcc 6.7.c -lm -o 6.7.out
+	$ ./6.7.out
+\end{lstlisting}
+The above code generates the text files that are loaded in the following code \\
+Download the following code 
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/6.7.1_plot.py
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Ass/Codes/6.7.2_plot.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+	$ python3 6.7.1_plot.py
+	$ python3 6.7.2_plot.py
+\end{lstlisting}
+The above code plots the graphs \ref{fig:complexity fft/ifft} and \ref{fig:Complexity convolution}
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/6.7.1_plot.png}
+\caption{Complexity of FFT/IFFT is O(n log n)}
+\label{fig:complexity fft/ifft}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/6.7.2_plot.png}
+\caption{Complexity of convolution is O($n^2$)}
+\label{fig:Complexity convolution}
+\end{figure}
+
+
 \end{enumerate}
 
 \section{Exercises}

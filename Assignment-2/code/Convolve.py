@@ -11,5 +11,5 @@ else:
         y = y + 2**(n-k)
 
 
-print("The value of n is : ",n)
-print("The value of output signal is : ",y)
+print(f"The value of n is : {n}")
+print(f"The value of output signal is : {y}")

@@ -215,9 +215,10 @@ columns=fullflexible
 \providecommand{\gauss}[2]{\mathcal{N}\ensuremath{\left(#1,#2\right)}}
 %\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
 \providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
-	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
 \newcommand{\solution}{\noindent \textbf{Solution: }}
 \newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\sqvec}[1]{\ensuremath{\left[\begin{array}{c}#1\end{array}\right]}}
 \providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 %\numberwithin{equation}{section}
@@ -508,9 +509,9 @@ a^nu(n) \ztrans \frac{1}{1-az^{-1}} \quad \abs{z} > \abs{a}
 \item 
 Let
 \begin{equation}
-H\brak{e^{\j \omega}} = H\brak{z = e^{\j \omega}}.
+H\brak{e^{j \omega}} = H\brak{z = e^{j \omega}}.
 \end{equation}
-Plot $\abs{H\brak{e^{\j \omega}}}$.  Comment.  $H(e^{\j \omega})$ is
+Plot $\abs{H\brak{e^{j \omega}}}$.  Comment.  $H(e^{j \omega})$ is
 known as the {\em Discret Time Fourier Transform} (DTFT) of $x(n)$.
 \\
 \solution Download and run the following code. The following code plots Fig. \ref{fig:dtft}.
@@ -521,17 +522,17 @@ run the above code using the command
 \begin{lstlisting}
 	python3 4.5.py
 \end{lstlisting}
-We observe that $\abs{H\brak{e^{\j \omega}}}$ is periodic with fundamental period $2\pi$.
+We observe that $\abs{H\brak{e^{j \omega}}}$ is periodic with fundamental period $2\pi$.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\columnwidth]{./figs/4.5.png}
-\caption{$\abs{H\brak{e^{\j\omega}}}$}
+\caption{$\abs{H\brak{e^{j\omega}}}$}
 \label{fig:dtft}
 \end{figure}
 
 \begin{align}
-	H\brak{e^{\j \omega}} &= \frac{1 + e^{-2\j\omega}}{1 + \frac12 e^{-\j\omega}} \\
-	\implies \abs{H\brak{e^{\j \omega}}} &= \frac{\abs{1 + \cos2\omega - \j\sin2\omega}}{\abs{1 + \frac12 \cos\omega - \frac12 \sin\omega}} \\
+	H\brak{e^{j \omega}} &= \frac{1 + e^{-2j\omega}}{1 + \frac12 e^{-j\omega}} \\
+	\implies \abs{H\brak{e^{j \omega}}} &= \frac{\abs{1 + \cos2\omega - j\sin2\omega}}{\abs{1 + \frac12 \cos\omega - \frac12 \sin\omega}} \\
 	&= \sqrt{\frac{(1 + \cos2\omega)^2 + (\sin2\omega)^2}{(1 + \frac12 \cos\omega)^2 + (\frac12 \sin\omega)^2}} \\
 	&= \sqrt{\frac{2 + 2\cos2\omega}{\frac54 + \cos\omega}} \\
 	&= \sqrt{\frac{2(2\cos^2\omega)4}{5 + 4\cos\omega} } \\
@@ -539,7 +540,7 @@ We observe that $\abs{H\brak{e^{\j \omega}}}$ is periodic with fundamental perio
 \end{align}
 
 period of $\abs{cos \omega}$ is $\pi$ and period of $\sqrt{5 + 4\cos \omega}$ is $2\pi$.\\
-Now period of $\abs{H\brak{e^{\j \omega}}}$ is $\frac{LCM(\pi,2\pi)}{HCF(\pi,2\pi)}$ = $\frac{2\pi}{1}$ = $2\pi$\\
+Now period of $\abs{H\brak{e^{j \omega}}}$ is $\frac{LCM(\pi,2\pi)}{HCF(\pi,2\pi)}$ = $\frac{2\pi}{1}$ = $2\pi$\\
 
 \item Express $h(n)$ in terms of $H(e^{j\omega})$\\
 \solution $h(n)$ is given by the inverse DTFT of $H(e^{j\omega})$
@@ -875,7 +876,7 @@ run the above code using the command.
 
 \item Compute
 \begin{equation} \label{6.3}
- y\brak{n}={\frac {1}{N}}\sum _{k=0}^{N-1}Y\brak{k}\cdot e^{\j 2\pi kn/N},\quad n = 0,1,\dots, N-1
+ y\brak{n}={\frac {1}{N}}\sum _{k=0}^{N-1}Y\brak{k}\cdot e^{j 2\pi kn/N},\quad n = 0,1,\dots, N-1
 \end{equation}
 \\
 \solution The following code plots Fig. \ref{fig:ynconv}. Note that this is the same as 
@@ -914,91 +915,91 @@ Observe that Fig. \eqref{fig:y-n-fft} is the same as $y(n)$ in Fig. \eqref{fig:3
 \caption{$y(n)$ using FFT and IFFT}
 \label{fig:y-n-fft}
 \end{figure}
-% \item Wherever possible, express all the above equations as matrix equations.\\
-% \solution
-% We use the DFT Matrix, where $\omega = e^{-\frac{j2k\pi}{N}}$, which is given by
-% \begin{align}
-% 	\mtx{W} = 
-% 	\begin{pmatrix}
-% 		\omega^0 & \omega^0 & \ldots & \omega^0 \\
-% 		\omega^0 & \omega^1 & \ldots & \omega^{N - 1} \\
-% 		\vdots & \vdots & \ddots & \vdots \\
-% 		\omega^0 & \omega^{N - 1} & \ldots & \omega^{(N -1)(N - 1)}
-% 	\end{pmatrix}
-% \end{align}
-% i.e. $W_{jk} = \omega^{jk}$, $0 \leq j, k < N$. Hence, we can write any DFT equation as
-% \begin{align}
-% 	\mtx{X} = \mtx{W}\mtx{x} = \mtx{x}\mtx{W}
-% \end{align}
-% \noindent where
-% \begin{align}
-% 	\mtx{x} = 
-% 	\begin{pmatrix}
-% 		x(0) \\ x(1) \\ \vdots \\ x(n - 1)
-% 	\end{pmatrix}
-% \end{align}
-% \noindent Using \eqref{6.3}, the inverse Fourier Transform is given by
-% \begin{align}
-% 	\mtx{x} = \mathcal{F}^{-1}\brak{\mtx{X}} = \mtx{W}^{-1}\mtx{X} &= \frac{1}{N}\mtx{W^{H}}\mtx{X} = \frac{1}{N}\mtx{X}\mtx{W^{H}} \\ 
-% 	\implies \mtx{W}^{-1} &= \frac{1}{N}\mtx{W^{H}}
-% \end{align}
-% \noindent where $H$ denotes hermitian operator. We can rewrite \eqref{6.2} using the element-wise multiplication operator as
-% \begin{align}
-% 	\mtx{Y} = \mtx{H}\cdot\mtx{X} = \brak{\mtx{W}\mtx{h}}\cdot\brak{\mtx{W}\mtx{x}}
-% \end{align}
-% \item Verify the above equation by generating the DFT matrix in python.\\
-% \solution Download the code from
-% \begin{lstlisting}
-% wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.6.py
-% \end{lstlisting}
-% and execute it using
-% \begin{lstlisting}
-% $ python3 6.6.py
-% \end{lstlisting}
+\item Wherever possible, express all the above equations as matrix equations.\\
+\solution
+We use the DFT Matrix, where $\omega = e^{-\frac{j2k\pi}{N}}$, which is given by
+\begin{align}
+	\mtx{W} = 
+	\begin{pmatrix}
+		\omega^0 & \omega^0 & \ldots & \omega^0 \\
+		\omega^0 & \omega^1 & \ldots & \omega^{N - 1} \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\omega^0 & \omega^{N - 1} & \ldots & \omega^{(N -1)(N - 1)}
+	\end{pmatrix}
+\end{align}
+i.e. $W_{jk} = \omega^{jk}$, $0 \leq j, k < N$. Hence, we can write any DFT equation as
+\begin{align}
+	\mtx{X} = \mtx{W}\mtx{x} = \mtx{x}\mtx{W}
+\end{align}
+\noindent where
+\begin{align}
+	\mtx{x} = 
+	\begin{pmatrix}
+		x(0) \\ x(1) \\ \vdots \\ x(n - 1)
+	\end{pmatrix}
+\end{align}
+\noindent Using \eqref{6.3}, the inverse Fourier Transform is given by
+\begin{align}
+	\mtx{x} = \mathcal{F}^{-1}\brak{\mtx{X}} = \mtx{W}^{-1}\mtx{X} &= \frac{1}{N}\mtx{W^{H}}\mtx{X} = \frac{1}{N}\mtx{X}\mtx{W^{H}} \\ 
+	\implies \mtx{W}^{-1} &= \frac{1}{N}\mtx{W^{H}}
+\end{align}
+\noindent where $H$ denotes hermitian operator. We can rewrite \eqref{6.2} using the element-wise multiplication operator as
+\begin{align}
+	\mtx{Y} = \mtx{H}\cdot\mtx{X} = \brak{\mtx{W}\mtx{h}}\cdot\brak{\mtx{W}\mtx{x}}
+\end{align}
+\item Verify the above equation by generating the DFT matrix in python.\\
+\solution Download the code from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.6.py
+\end{lstlisting}
+and execute it using
+\begin{lstlisting}
+$ python3 6.6.py
+\end{lstlisting}
 
-% The above code plots \eqref{fig:DFT matrix}
-% \begin{figure}
-% \centering
-% \includegraphics[width=\columnwidth]{figs/6.6.png}
-% \caption{$y(n)$ using DFT matrix}
-% \label{fig:DFT matrix}
-% \end{figure}
+The above code plots \eqref{fig:DFT matrix}
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/6.6.png}
+\caption{$y(n)$ using DFT matrix}
+\label{fig:DFT matrix}
+\end{figure}
 
-% \item Compute the 8-point FFT in C.\\
-% \solution Download the following C code 
-% \begin{lstlisting}
-% wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.7.c
-% \end{lstlisting}
-% run the above C code using the command
-% \begin{lstlisting}
-% 	$ gcc 6.7.c -lm -o 6.7.out
-% 	$ ./6.7.out
-% \end{lstlisting}
-% The above code generates the text files that are loaded in the following code \\
-% Download the following code 
-% \begin{lstlisting}
-% wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.7.1_plot.py
-% wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.7.2_plot.py
-% \end{lstlisting}
-% run the above code using the command
-% \begin{lstlisting}
-% 	$ python3 6.7.1_plot.py
-% 	$ python3 6.7.2_plot.py
-% \end{lstlisting}
-% The above code plots the graphs \ref{fig:complexity fft/ifft} and \ref{fig:Complexity convolution}
-% \begin{figure}
-% \centering
-% \includegraphics[width=\columnwidth]{figs/6.7.1_plot.png}
-% \caption{Complexity of FFT/IFFT is O(n log n)}
-% \label{fig:complexity fft/ifft}
-% \end{figure}
+\item Compute the 8-point FFT in C.\\
+\solution Download the following C code 
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.7.c
+\end{lstlisting}
+run the above C code using the command
+\begin{lstlisting}
+	$ gcc 6.7.c -lm -o 6.7.out
+	$ ./6.7.out
+\end{lstlisting}
+The above code generates the text files that are loaded in the following code \\
+Download the following code 
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.7.1_plot.py
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/6.7.2_plot.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+	$ python3 6.7.1_plot.py
+	$ python3 6.7.2_plot.py
+\end{lstlisting}
+The above code plots the graphs \ref{fig:complexity fft/ifft} and \ref{fig:Complexity convolution}
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/6.7.1_plot.png}
+\caption{Complexity of FFT/IFFT is O(n log n)}
+\label{fig:complexity fft/ifft}
+\end{figure}
 
-% \begin{figure}
-% \centering
-% \includegraphics[width=\columnwidth]{figs/6.7.2_plot.png}
-% \caption{Complexity of convolution is O($n^2$)}
-% \label{fig:Complexity convolution}
-% \end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/6.7.2_plot.png}
+\caption{Complexity of convolution is O($n^2$)}
+\label{fig:Complexity convolution}
+\end{figure}
 \end{enumerate}
 
 \section{FFT}
@@ -1105,10 +1106,10 @@ W_{N} = e^{-j2\pi/N}
 from eqn\eqref{wwla} we get $W_{2} = W_{4}^2$
 \begin{align}
 	\vec{F}_{4}\vec{P}_{4}&=\begin{bmatrix}
-		&W_{4}^{0}&W_{4}^{0}&W_{4}^{0}&W_{4}^{0}\\
-		&W_{4}^{0}&W_{4}^{2}&W_{4}^{1}&W_{4}^{3}\\
-		&W_{4}^{0}&W_{4}^{4}&W_{4}^{2}&W_{4}^{6}\\
-		&W_{4}^{0}&W_{4}^{6}&W_{4}^{3}&W_{4}^{9}\\
+		W_{4}^{0}&W_{4}^{0}&W_{4}^{0}&W_{4}^{0}\\
+		W_{4}^{0}&W_{4}^{2}&W_{4}^{1}&W_{4}^{3}\\
+		W_{4}^{0}&W_{4}^{4}&W_{4}^{2}&W_{4}^{6}\\
+		W_{4}^{0}&W_{4}^{6}&W_{4}^{3}&W_{4}^{9}\\
 	\end{bmatrix}
 \end{align}
 
@@ -1125,16 +1126,57 @@ from eqn\eqref{wwla} we get $W_{2} = W_{4}^2$
 \end{bmatrix}
 \vec{P}_{N}
 \end{equation}
+\solution  Observe that for even $N$ and letting $\vec{f}_N^i$ denote the $i^{\text{th}}$ column of $\vec{F}_N$, 
+\begin{align}
+	\myvec{\vec{D}_{N/2}\vec{F}_{N/2} \\ -\vec{D}_{N/2}\vec{F}_{N/2}} = \myvec{\vec{f}_N^{2} & \vec{f}_N^{4} & \ldots & \vec{f}_N^{N}}
+\end{align}
+and
+\begin{align}
+	\myvec{\vec{I}_{N/2}\vec{F}_{N/2} \\ \vec{I}_{N/2}\vec{F}_{N/2}} = \myvec{\vec{f}_N^{1} & \vec{f}_N^{3} & \ldots & \vec{f}_N^{N - 1}}
+\end{align}
+Thus,
+\begin{align}
+	&\myvec{\vec{I}_2\vec{F}_2 & \vec{D}_2\vec{F}_2 \\ \vec{I}_2\vec{F}_2 & -\vec{D}_2\vec{F}_2} = \myvec{\vec{I}_{N/2} & \vec{D}_{N/2} \\ \vec{I}_{N/2} & -\vec{D}_{N/2}}\myvec{\vec{F}_{N/2} & 0 \\ 0 & \vec{F}_{N/2}} \nonumber \\
+	&= \myvec{\vec{f}_N^{1} & \ldots & \vec{f}_N^{N - 1} & \vec{f}_N^{2} & \ldots & \vec{f}_N^{N}}
+\end{align}
+and so,
+\begin{align}
+	&\myvec{\vec{I}_{N/2} & \vec{D}_{N/2} \\ \vec{I}_{N/2} & -\vec{D}_{N/2}}\myvec{\vec{F}_{N/2} & 0 \\ 0 & \vec{F}_{N/2}}\vec{P}_{N} \nonumber \\
+	&= \myvec{\vec{f}_N^{1} & \vec{f}_N^{2} & \ldots & \vec{f}_N^{N}} = \vec{F}_N
+\end{align}
 \item Find 
     \begin{align}
 	     \vec{P}_4 \vec{x}
     \end{align}
+\solution  We have,
+\begin{align}
+	\vec{P}_4\vec{x} = \myvec{\vec{e}_4^1 & \vec{e}_4^3 & \vec{e}_4^2 & \vec{e}_4^4}\myvec{x(0)\\x(1)\\x(2)\\x(3)} = \myvec{x(0)\\x(2)\\x(1)\\x(3)}
+	\label{eq:x-permute}
+\end{align}
 \item Show that 
     \begin{align}
 	    \vec{X} = \vec{F}_N \vec{x}
 	    \label{eq:dft-mat-def}
     \end{align}
-		where $\vec{x}, \vec{X}$ are the vector representations of $x(n), X(k)$ respectively.
+		where $\vec{x}, \vec{X}$ are the vector representations of $x(n), X(k)$ respectively.\\
+		\solution  Writing the terms of $X$, 
+		\begin{align}
+			X(0) &= x(0) + x(1) + \ldots + x(N - 1) \\
+			X(1) &= x(0) + x(1)e^{-\frac{\j2\pi}{N}} + \ldots + \nonumber \\
+				 &+ x(N - 1)e^{-\frac{\j2(N - 1)\pi}{N}} \\
+				 &\vdots \nonumber \\
+			X(N - 1) &= x(0) + x(1)e^{-\frac{\j2(N - 1)\pi}{N}} + \ldots + \nonumber \\
+					 &+ x(N - 1)e^{-\frac{\j2(N - 1)(N - 1)\pi}{N}}	
+		\end{align}
+		Clearly, the term in the $m^{\text{th}}$ row and $n^{\text{th}}$ column is given by ($0 \leq m \leq N - 1$ and $0 \leq n \leq N - 1$) 
+		\begin{align}
+			T_{mn} = x(n)e^{-\frac{\j2mn\pi}{N}} 
+		\end{align}
+		and so, we can represent each of these terms as a matrix product
+		\begin{align}
+			\vec{X} = \vec{F}_N\vec{x}
+		\end{align}
+		where $\vec{F}_N = \sbrak{e^{-\frac{-\j2mn\pi}{N}}}_{mn}$ for $0 \leq m \leq N - 1$ and $0 \leq n \leq N - 1$.
 \item Derive the following Step-by-step visualisation  of
 8-point FFTs into 4-point FFTs and so on
 \begin{equation}
@@ -1375,6 +1417,7 @@ x(3) \\
 x(7) \\ 
 \end{bmatrix}
 \end{equation}
+
 \item For 
     \begin{align}
 	    \vec{x} = \myvec{1\\2\\3\\4\\2\\1}
@@ -1382,11 +1425,40 @@ x(7) \\
     \end{align}
     compte the DFT  
 		using 
-	    \eqref{eq:dft-mat-def}
-    \item Repeat the above exercise using the FFT
-	    after zero padding $\vec{x}$.
-%	    \eqref{eq:fft-mat-def}
-\item Write a C program to compute the 8-point FFT. 
+	    \eqref{eq:dft-mat-def}\\
+\solution Download the code from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/7.9.py
+\end{lstlisting}
+and execute it using
+\begin{lstlisting}
+$ python3 7.9.py
+\end{lstlisting}
+
+\item Repeat the above exercise using the FFT
+after zero padding $\vec{x}$.\\
+\solution Download the code from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/7.10.py
+\end{lstlisting}
+and execute it using
+\begin{lstlisting}
+$ python3 7.10.py
+\end{lstlisting}
+
+\item Write a C program to compute the 8-point FFT.\\
+\solution Download the code from
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Filter/Codes/7.11.c
+\end{lstlisting}
+compile it using
+\begin{lstlisting}
+$ gcc 7.11.c -lm -o 7.11.out
+\end{lstlisting}
+and execute it using
+\begin{lstlisting}
+$ ./7.11.out
+\end{lstlisting}
  \end{enumerate}
 \section{Exercises}
 Answer the following questions by looking at the python code in Problem \ref{2.3}.
@@ -1442,12 +1514,12 @@ terms that might be left over. We can now take the inverse $z$-transform of
 Substituting the values,
 \begin{align}
 	&h(n) = [\brak{2.76}\brak{0.55}^n \nonumber \\ 
-	&+ \brak{-1.05-1.84\j}\brak{0.57+0.16\j}^n \nonumber \\
-	&+ \brak{-1.05+1.84\j}\brak{0.57-0.16\j}^n \nonumber \\
-	&+ \brak{-0.53+0.08\j}\brak{0.63+0.32\j}^n \nonumber \\
-	&+ \brak{-0.53-0.08\j}\brak{0.63-0.32\j}^n \nonumber \\
-	&+ \brak{0.20+0.004\j}\brak{0.75+0.47\j}^n \nonumber \\
-	&+ \brak{0.20-0.004\j}\brak{0.75-0.47\j}^n]u(n) \nonumber \\
+	&+ \brak{-1.05-1.84j}\brak{0.57+0.16j}^n \nonumber \\
+	&+ \brak{-1.05+1.84j}\brak{0.57-0.16j}^n \nonumber \\
+	&+ \brak{-0.53+0.08j}\brak{0.63+0.32j}^n \nonumber \\
+	&+ \brak{-0.53-0.08j}\brak{0.63-0.32j}^n \nonumber \\
+	&+ \brak{0.20+0.004j}\brak{0.75+0.47j}^n \nonumber \\
+	&+ \brak{0.20-0.004j}\brak{0.75-0.47j}^n]u(n) \nonumber \\
 	&+ \brak{-6.81 \times 10^{-4}}\delta(n)
 \end{align}
 The values $r(i)$, $p(i)$, $k(i)$ and thus the impulse response function are computed and plotted at
@@ -1491,8 +1563,6 @@ $ python3 7.2.*.py
 	\caption{Plot of $y(n)$}
 	\label{fig:butter-out}
 \end{figure}
-
-
 
 \item What is the sampling frequency of the input signal?
 \\

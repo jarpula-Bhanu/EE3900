@@ -1003,9 +1003,8 @@ The above code plots the graphs \ref{fig:complexity fft/ifft} and \ref{fig:Compl
 \end{enumerate}
 
 \section{FFT}
- \subsection{Definitions}
-\begin{enumerate}[label=\arabic*.,ref=\thesection.\theenumi]
-\numberwithin{equation}{section}
+
+\begin{enumerate}
     \item The DFT of $x(n)$ is given by
     \begin{align}
         X(k) \triangleq \sum_{n=0}^{N-1} x(n) e^{-j 2 \pi k n / N}, \quad k=0,1, \ldots, N-1
@@ -1031,10 +1030,7 @@ W_{N} = e^{-j2\pi/N}
 	\begin{align}
 		\vec{D}_4 = diag\myvec{W_{N}^{0} & W_{N}^{1} & W_{N}^{2} & W_{N}^{3}}
 	\end{align}
- \end{enumerate}
- \subsection{Problems}
-\begin{enumerate}[label=\arabic*.,ref=\thesection.\theenumi]
-\numberwithin{equation}{section}
+
 \item Show that 
 \begin{equation} \label{wwla}
     W_{N}^{2}=W_{N/2}
@@ -1046,16 +1042,7 @@ W_{N} = e^{-j2\pi/N}
 	&= e^{-j2\pi/N/2}\\
 	&=W_{N/2}
 \end{align}
-\item Find $\vec{P}_6$.\\
-\solution $\vec{P}_6 =\myvec{\vec{e}_4^{1} &\vec{e}_4^{3} &\vec{e}_4^{5} &\vec{e}_4^{2} &\vec{e}_4^{4} &\vec{e}_4^{6}}$\\
-\begin{equation}
-	\vec{P}_6= \myvec{&1 &0 &0 &0 &0 &0 \\&0 &0 &0 &1 &0 &0 \\&0 &1 &0 &0 &0 &0  \\&0 &0 &0 &0 &1 &0 \\&0 &0 &1 &0 &0 &0 \\&0 &0 &0 &0 &0 &1 }
-\end{equation}
-\item Find $\vec{D}_3$.\\
-\solution \begin{align}
-	\vec{D}_3 &= diag\myvec{W_{3}^{0} & W_{3}^{1} & W_{3}^{2}}\\
-	& = \myvec{&1 &0 &0\\&0 &e^{-j2\pi/3} &0\\&0 &0 &(e^{-j2\pi/3})^2}
-\end{align}
+
 \item Show that 
 \begin{equation}
 	\vec{F}_{4}=
@@ -1459,6 +1446,27 @@ and execute it using
 \begin{lstlisting}
 $ ./7.11.out
 \end{lstlisting}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{figs/6.7.1_plot.png}
+	\caption{Complexity of FFT/IFFT is O(n log n)}
+	% \label{fig:complexity fft/ifft}
+	\end{figure}
+	
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{figs/6.7.2_plot.png}
+	\caption{Complexity of convolution is O($n^2$)}
+	% \label{fig:Complexity convolution}
+	\end{figure}
+
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{figs/7_11.png}
+	\caption{Comparision of complexities}
+	% \label{fig:Complexity convolution}
+	\end{figure}
+	
  \end{enumerate}
 \section{Exercises}
 Answer the following questions by looking at the python code in Problem \ref{2.3}.

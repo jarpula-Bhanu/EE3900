@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1664355188 "/home/bhanu/IITH/EE3900/Pingala/pingala.tex" "pingala.pdf" "pingala" 1664355188
-  "/home/bhanu/IITH/EE3900/Pingala/pingala.tex" 1664355187 18893 858ab1829d21efa1e08dc9c0af9bd00c ""
+["pdflatex"] 1664367623 "/home/bhanu/IITH/EE3900/Pingala/pingala.tex" "pingala.pdf" "pingala" 1664367624
+  "/home/bhanu/IITH/EE3900/Pingala/pingala.tex" 1664367623 18898 f43c7f3f89aa7a0ae538bc753f157556 ""
   "/opt/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1658926031 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/opt/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1658926031 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/opt/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1658926031 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -139,10 +139,10 @@
   "/opt/texlive/2022/texmf.cnf" 1658926031 585 9e8504408f25e5ac7fa614e58817b8d1 ""
   "figs/2.2.png" 1664349270 18282 0a7871832444f5b8fce890d731c16413 ""
   "figs/2.5.png" 1664349329 15889 3ba82d2a8173327aa561a81a3aba2aa6 ""
-  "pingala.aux" 1664355188 2175 d712e97eb7f4759a0148230e34378127 "pdflatex"
-  "pingala.out" 1664355188 377 6ef0fda02ae42ab5eb9699af63378c50 "pdflatex"
-  "pingala.tex" 1664355187 18893 858ab1829d21efa1e08dc9c0af9bd00c ""
-  "pingala.toc" 1664355188 214 b7d77648735507f5510b34423b2e2c1f "pdflatex"
+  "pingala.aux" 1664367624 2175 d712e97eb7f4759a0148230e34378127 "pdflatex"
+  "pingala.out" 1664367624 377 6ef0fda02ae42ab5eb9699af63378c50 "pdflatex"
+  "pingala.tex" 1664367623 18898 f43c7f3f89aa7a0ae538bc753f157556 ""
+  "pingala.toc" 1664367624 214 b7d77648735507f5510b34423b2e2c1f "pdflatex"
   (generated)
   "pingala.aux"
   "pingala.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.27)  28 SEP 2022 14:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.27)  28 SEP 2022 17:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -708,19 +708,14 @@ File: ./figs/2.2.png Graphic file (type png)
 Package pdftex.def Info: ./figs/2.2.png  used on input line 330.
 (pdftex.def)             Requested size: 252.0pt x 189.00427pt.
 
-Overfull \hbox (24.14063pt too wide) detected at line 350
+Overfull \hbox (24.14063pt too wide) detected at line 351
 []
- []
-
-
-Underfull \hbox (badness 1960) in paragraph at lines 380--382
-\OT1/txr/m/n/12 solution Down-load and run the fol-low-ing
  []
 
 <./figs/2.5.png, id=75, 462.528pt x 346.896pt>
 File: ./figs/2.5.png Graphic file (type png)
 <use ./figs/2.5.png>
-Package pdftex.def Info: ./figs/2.5.png  used on input line 391.
+Package pdftex.def Info: ./figs/2.5.png  used on input line 393.
 (pdftex.def)             Requested size: 252.0pt x 189.00427pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -737,7 +732,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4] [5
+ [4]
+Underfull \hbox (badness 10000) in paragraph at lines 554--559
+
+ []
+
+[5
 
 ] (./pingala.aux)
 Package rerunfilecheck Info: File `pingala.out' has not changed.
@@ -752,7 +752,7 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  72i,10n,77p,284b,1571s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/opt/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/txex.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></opt/texlive/2022/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></opt/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/texlive/2022/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></opt/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on pingala.pdf (5 pages, 117051 bytes).
+Output written on pingala.pdf (5 pages, 116988 bytes).
 PDF statistics:
  290 PDF objects out of 1000 (max. 8388607)
  252 compressed objects within 3 object streams

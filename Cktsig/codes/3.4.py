@@ -11,7 +11,7 @@ def U(t):
 
 def v1(t):
     if (t >= 0): 
-        return 4/3*(1 - np.exp(-t*1.5e6))*U(t)
+        return 2/3*(1 + np.exp(-t*1.5e6))*U(t)
     else: 
         return 0
 
@@ -22,5 +22,5 @@ plt.plot(t, vc0(t))
 plt.xlabel('t (s)')
 plt.ylabel('$v_{C_0}(t)$ (V)')
 plt.grid()
-plt.savefig('../figs/2.7.png')
+plt.savefig('../figs/3.4.png')
 plt.show()

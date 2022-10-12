@@ -171,14 +171,14 @@ Fourier Series
 % was not built to handle multiple paragraphs
 %
 
-\author{ G V V Sharma$^{*}$ %<-this  stops a space
-\thanks{*The author is with the Department
-of Electrical Engineering, Indian Institute of Technology, Hyderabad
-502285 India e-mail:  gadepall@iith.ac.in.  All content in the manuscript is
-released under GNU GPL.  Free to use for anything. }% <-this % stops a space
+\author{Jarpula Bhanu Prasad - AI21BTECH11015}%<-this  stops a space
+%\thanks{*The author is with the Department
+%of Electrical Engineering, Indian Institute of Technology, Hyderabad
+%502285 India e-mail:  gadepall@iith.ac.in.  All content in the manuscript is
+%released under GNU GPL.  Free to use for anything. }% <-this % stops a space
 %\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
 %\thanks{Manuscript received April 19, 2005; revised January 11, 2007.}}
-}
+%}
 % note the % following the last \IEEEmembership and also \thanks -
 % these prevent an unwanted space from occurring between the last author name
 % and the end of the author line. i.e., if you had this:
@@ -250,8 +250,38 @@ Let
 \end{align}
 \begin{enumerate}[label=\thesection.\arabic*
 ,ref=\thesection.\theenumi]
-\item Plot $x(t)$.
-\item Show that $x(t)$ is periodic and find its period.
+\item Plot $x(t)$.\\
+\solution The following code will plot the graph in fig \eqref{plot}
+\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/1.1.py
+\end{lstlisting}
+run the above code using the command
+\begin{lstlisting}
+python3 1.1.py
+\end{lstlisting}
+\begin{figure}[!ht]
+	\includegraphics[width=\columnwidth]{./figs/1.1.png}
+	\caption{$x(t) = A_0\abs{\sin\brak{2\pi f_0 t}}$}
+	\label{plot}
+\end{figure}
+\item Show that $x(t)$ is periodic and find its period.\\
+\solution From  fig \eqref{plot}, we see that  $x(t)$ is periodic. Further,
+\begin{align}
+	\text{period of } \sin(at) \quad \text{given by } \frac{2\pi}{a}
+\end{align}
+Now, period of $x(t)$ is 
+\begin{align}
+	A_0\abs{\sin\brak{2\pi f_0 t}} &\implies \frac{\pi}{2\pi f_0}\\
+	&\implies \frac{1}{2f_0}
+\end{align}
+Verification
+\begin{align}
+	x\brak{t+\frac{1}{2f_0}} &= A_0\abs{\sin\brak{2\pi f_0 \brak{t+\frac{1}{2f_0}}}}\\
+	&= A_0\abs{\sin\brak{2\pi f_0 t+ \pi}}\\
+	&= A_0\abs{-\sin\brak{2\pi f_0 t}}\\
+	&= A_0\abs{\sin\brak{2\pi f_0 t}}
+\end{align}
+Hence the period of $x(t)$ is $\frac{1}{2f_0}$.
 \end{enumerate}
 \section{Fourier Series}
 Consider $A_0 =12$ and $f_0 = 50$ for all numerical calculations.
@@ -267,23 +297,118 @@ show that
 	c_k = f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi kf_0 t}\, dt
 \label{eq:one-Z}
 \end{align}
-	\item Find $c_k$ for
-	\eqref{eq:10-orig-diff-def}
-\item Verify
-	\eqref{eq:10-orig-diff-def}
-	using python.
-	\item Show that
+\solution We have for some $n \in \mathbb{Z}$,
 \begin{align}
-	x(t) = \sum_{k = 0}^{\infty}\brak{a_k\cos{\j2\pi kf_0 t}+b_k\sin{\j2\pi kf_0 t}}
-\label{eq:one-Z-real}
+    x(t)e^{-\j2\pi nf_0t} = \sum_{k = -\infty}^{\infty}c_ke^{\j2\pi (k - n)f_0 t}
 \end{align}
-and obtain the formulae for $a_k$ and $b_k$.
-\item Find $a_k$ and $b_k$ for
-	\eqref{eq:10-orig-diff-def}
-\item Verify
-\eqref{eq:one-Z-real}
-using python.
+But we know from the periodicity of $e^{\j2\pi kf_0t}$,
+\begin{align}
+    \int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}e^{\j2\pi kf_0 t}\, dt = 
+    \frac{1}{f_0}\delta\brak{k} 
+\end{align}
+Thus,
+\begin{align}
+    \int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi nf_0 t}\, dt = 
+    \frac{c_n}{f_0} \\
+    \implies c_n = f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi nf_0 t}\, dt 
+\end{align}
+	\item Find $c_k$ for
+	\eqref{eq:10-orig-diff-def}\\
+	\solution Using \eqref{eq:one-Z},
+	\begin{align}
+		c_n &= f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}A_0\abs{\sin\brak{2\pi f_0t}}
+		e^{-\j2\pi nf_0t}\, dt \\
+			&= f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}A_0\abs{\sin\brak{2\pi f_0t}}
+		\cos\brak{2\pi nf_0t}\, dt \nonumber \\
+			&+ \j f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}A_0
+			\abs{\sin\brak{2\pi f_0t}}\sin\brak{2\pi nf_0t}\, dt \\
+			&= 2f_0\int_{0}^{\frac{1}{2f_0}}A_0\sin\brak{2\pi f_0t}\cos\brak{2\pi nf_0t}\, dt \\
+			&= f_0A_0\int_{0}^{\frac{1}{2f_0}}\brak{\sin\brak{2\pi\brak{n+1}f_0t}}\, dt \nonumber \\ 
+			&- f_0A_0\int_{0}^{\frac{1}{2f_0}}\brak{\sin\brak{2\pi\brak{n-1}f_0t}}\, dt \\ 
+			&= A_0\frac{1+\brak{-1}^n}{2\pi}\brak{\frac{1}{n+1} - \frac{1}{n-1}} \\
+			&= 
+			\begin{cases}
+				\frac{2A_0}{\pi\brak{1-n^2}} & n\ \text{even} \\
+				0 & n\ \text{odd}
+			\end{cases}
+	\end{align}
 
+	\item Verify 
+	\eqref{eq:one-Z-complex}
+	using python.\\
+	\solution The following code will plot the graph in fig \eqref{plot2}
+	\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.3.py
+	\end{lstlisting}
+	run the above code using the command
+	\begin{lstlisting}
+	python3 2.3.py
+	\end{lstlisting}
+	\begin{figure}[!ht]
+		\includegraphics[width=\columnwidth]{./figs/2.3.png}
+		\caption{$x(t) = \sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t}$}
+		\label{plot2}
+	\end{figure}
+	\item Show that 
+	\begin{align}
+		x(t) = \sum_{k = 0}^{\infty}\brak{a_k\cos{\j2\pi kf_0 t}+b_k\sin{\j2\pi kf_0 t}}
+		\label{eq:one-Z-real}
+	\end{align}
+	and obtain the formulae for $a_k$ and $b_k$.\\
+	\solution From \eqref{eq:one-Z-complex},
+	\begin{align}
+		x(t) &= \sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t} \\
+		&= c_0 + \sum_{k = 1}^{\infty}c_ke^{\j2\pi kf_0t} + c_{-k}e^{-\j2\pi kf_0t} \\
+		&= c_0 + \sum_{k = 1}^{\infty}\brak{c_k + c_{-k}}\cos\brak{2\pi kf_0t}  \nonumber \\
+		&+ \sum_{k = 0}^{\infty}\brak{c_k - c_{-k}}\sin\brak{2\pi kf_0t}
+	\end{align}
+	Hence, for $k \ge 0$,
+	\begin{align}
+		a_k &= 
+		\begin{cases}
+			c_0 & k = 0 \\
+			c_k + c_{-k} & k > 0
+		\end{cases} \\
+		b_k &= c_k - c_{-k}
+		\label{eq:akbk}
+	\end{align}
+	\item Find $a_k$ and $b_k$ for 
+	\eqref{eq:10-orig-diff-def}\\
+	\solution From \eqref{eq:one-Z-complex}, we see that since $x(t)$ is even,
+	\begin{align}
+		x(-t) &= \sum_{k = -\infty}^{\infty}c_ke^{-\j2\pi kf_0 t} \\
+		&= \sum_{k = -\infty}^{\infty}c_{-k}e^{\j2\pi kf_0t} \label{eq:sub} \\
+		&= \sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t}
+	\end{align}
+	where we substitute $k \mapsto -k$ in \eqref{eq:sub}. Hence, we see that 
+	$c_k = c_{-k}$. So, from \eqref{eq:akbk} and for $k \ge 0$,
+	\begin{align}
+		a_k &= 
+		\begin{cases}
+			\frac{2A_0}{\pi} & k = 0 \\
+			\frac{4A_0}{\pi\brak{1 - k^2}} & k > 0,\ k\ \text{even} \\
+			0 & \text{otherwise}
+		\end{cases} \\
+		b_k &= 0
+		\label{eq:akbk-even}
+	\end{align}
+	\item Verify
+	\eqref{eq:one-Z-real}
+	using python.\\
+	\solution The following code will plot the graph in fig \eqref{plot3}
+	\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
+	\end{lstlisting}
+	run the above code using the command
+	\begin{lstlisting}
+	python3 2.6.py
+	\end{lstlisting}
+	\begin{figure}[!ht]
+		\includegraphics[width=\columnwidth]{./figs/2.6.png}
+		\caption{$x(t) = \sum_{k = 0}^{\infty}\brak{a_k\cos{\j2\pi kf_0 t}+b_k\sin{\j2\pi kf_0 t}}$}
+		\label{plot3}
+	\end{figure}
+	
 \end{enumerate}
 
 

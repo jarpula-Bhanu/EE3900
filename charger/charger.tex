@@ -115,6 +115,8 @@ columns=fullflexible
 \providecommand{\norm}[1]{\lVert#1\rVert}
 \providecommand{\mtx}[1]{\mathbf{#1}}
 \providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\rect}[1]{\text{rect}\ensuremath{\left(#1\right)}}
+\providecommand{\sinc}[1]{\text{sinc}\ensuremath{\left(#1\right)}}
 \providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
 \providecommand{\ztrans}{\overset{\mathcal{Z}}{ \rightleftharpoons}}
 
@@ -411,5 +413,54 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 	
 \end{enumerate}
 
+\section{Fourier Transform}
+\begin{enumerate}[label=\thesection.\arabic*
+	,ref=\thesection.\theenumi]
+	\item 
+		\begin{align}
+			\delta(t)&=0, \quad t\neq 0\\
+			\int_{-\infty}^{\infty}\delta(t) \, dt&= 1
+		\end{align}
+	 \item The Fourier Transform of $g(t)$ is
+	 \begin{align}
+	 G(f)=\int_{-\infty}^{\infty}g(t)e^{-j2\pi ft}\,dt
+	 \end{align}
+	 \item Show that 
+	 \begin{align}
+		 g(t-t_0)&\system{F}G(f)e^{-j2\pi ft_0}\\
+	 \end{align}
+	 \item Show that 
+	 \begin{align}
+		 G(t)&\system{F}g(-f)
+	 \end{align}
+	 \item $\delta(t)\system{F}?$
+	 \item $e^{-j2\pi f_0t}\system{F}?$
+	 \item $\cos(2\pi f_0t)\system{F}?$
+	 \item Find the Fourier Transform of $x(t)$ and plot it.  Verify using python.
+	 \item Show that 
+	 \begin{align}
+		 \rect{t} \system{F} \sinc{t}
+	 \end{align}
+	 Verify using python.
+	 \item $\sinc{t}\system{F} ?$.  Verify using python.
+	\end{enumerate}
+
+	\section{Filter}
+
+\begin{enumerate}[label=\thesection.\arabic*
+	,ref=\thesection.\theenumi]
+	\item Find $H(f)$ which transforms $x(t)$ to DC 5V.
+	\item Find $h(t)$.
+	\item Verify your result using  through convolution.
+	\end{enumerate}
+
+\section{Filter Design}
+\begin{enumerate}[label=\thesection.\arabic*
+,ref=\thesection.\theenumi]
+\item Design a Butterworth filter for $H(f)$.
+\item Design a Chebyschev filter for $H(f)$.
+\item Design a circuit for your Butterworth filter.
+\item Design a circuit for your Chebyschev filter.
+\end{enumerate}
 
 \end{document}

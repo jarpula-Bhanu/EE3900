@@ -429,13 +429,45 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 	 \begin{align}
 		 g(t-t_0)&\system{F}G(f)e^{-j2\pi ft_0}\\
 	 \end{align}
+	 \solution
 	 \item Show that 
 	 \begin{align}
 		 G(t)&\system{F}g(-f)
 	 \end{align}
-	 \item $\delta(t)\system{F}?$
-	 \item $e^{-j2\pi f_0t}\system{F}?$
-	 \item $\cos(2\pi f_0t)\system{F}?$
+	 \solution
+	 \item $\delta(t)\system{F}?$\\
+	 \solution By applying the defination fo fourier transformation for $\delta(t-t_0)$ \{$t_0$ be time shifting\}.
+	 \begin{align}
+		\mathcal{F}\cbrak{\delta(t-t_0)}(f) = \mathcal{F}(t)= \int_{-\infty}^{\infty} \delta(t-t_0)e^{-j2\pi ft}dt.
+	 \end{align}
+	 By applying the time shifting property of impulse we get
+	 \begin{align}
+		\mathcal{F}(f) &= e^{-j2\pi ft_0}\\
+		i.e., \quad \delta(t-t_0) &\system{F} e^{-j2\pi ft_0}
+	 \end{align}
+	 Now, substitute $t_0 = 0$ we get 
+	 \begin{align}
+		\delta(t) \system{F} 1
+	 \end{align}
+	 \item $e^{-j2\pi f_0t}\system{F}?$\\
+	 \solution Applying the defination of inverse fourier transformation.
+	 \begin{align}
+		\mathcal{F}^{-1}\cbrak{\delta(f+f_0)}(t) = f(t)= \int_{-\infty}^{\infty}\delta(f+f_0)e^{j2\pi ft}df
+	 \end{align}
+	 By applying the shifting property of impulse 
+	 \begin{align}
+		f(t) &= e^{-j2\pi f_0t}\\
+		i.e., \quad e^{-j2\pi f_0t} &\system{F} \delta(f+f_0)
+	 \end{align}
+	 \item $\cos(2\pi f_0t)\system{F}?$\\
+	 \solution \begin{align}
+		\cos(2\pi f_0t) &= \frac{e^{j2\pi f_0t}+e^{-j2\pi f_0t}}{2}\\
+		\mathcal{F}\sbrak{\cos(2\pi f_0t)} &= \int_{-\infty}^\infty \cos(2\pi f_0t) e^{-j2\pi ft}dt\\
+		&= \int_{-\infty}^\infty \frac{e^{j2\pi f_0t}+e^{-j2\pi f_0t}}{2} e^{-j2\pi ft}dt\\
+		&= \frac{1}{2}\sbrak{\int_{-\infty}^\infty e^{j2\pi f_0te^{-j2\pi ft}dt}+ \int_{-\infty}^\infty e^{-j2\pi f_0t}e^{-j2\pi ft}dt}\\
+		&= \frac{1}{2}\sbrak{\delta(f-f_0)+\delta(f+f_0)}\\
+		\therefore \cos(2\pi f_0t)&\system{F}\frac{1}{2}\sbrak{\delta(f-f_0)+\delta(f+f_0)}
+	 \end{align}
 	 \item Find the Fourier Transform of $x(t)$ and plot it.  Verify using python.
 	 \item Show that 
 	 \begin{align}

@@ -416,25 +416,45 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 \section{Fourier Transform}
 \begin{enumerate}[label=\thesection.\arabic*
 	,ref=\thesection.\theenumi]
+
 	\item 
-		\begin{align}
-			\delta(t)&=0, \quad t\neq 0\\
-			\int_{-\infty}^{\infty}\delta(t) \, dt&= 1
-		\end{align}
-	 \item The Fourier Transform of $g(t)$ is
-	 \begin{align}
-	 G(f)=\int_{-\infty}^{\infty}g(t)e^{-j2\pi ft}\,dt
-	 \end{align}
-	 \item Show that 
-	 \begin{align}
-		 g(t-t_0)&\system{F}G(f)e^{-j2\pi ft_0}\\
-	 \end{align}
-	 \solution
-	 \item Show that 
-	 \begin{align} \label{duality}
-		 G(t)&\system{F}g(-f)
-	 \end{align}
-	 \solution
+\begin{align}
+	\delta(t)&=0, \quad t\neq 0 \\
+	\int_{-\infty}^{\infty}\delta(t) \, dt&= 1
+\end{align}
+\item The Fourier Transform of $g(t)$ is
+\begin{align}
+G(f)=\int_{-\infty}^{\infty}g(t)e^{-j2\pi ft}\,dt
+\label{eq:fourier}
+\end{align}
+\item Show that 
+\begin{align}
+    g(t-t_0)&\system{F}G(f)e^{-j2\pi ft_0}
+    \label{eq:t-shift}
+\end{align}
+\solution We write, substituting $u := t-t_0$,
+\begin{align}
+    g(t-t_0)&\system{F}\int_{-\infty}^{\infty}
+            g(t-t_0)e^{-\j2\pi ft}\,dt \\
+            &=\int_{-\infty}^{\infty}
+            g(u)e^{-\j2\pi f(u + t_0)}\,du \\
+            &=G(f)e^{-j2\pi ft_0}
+\end{align}
+where the last equality follows from \eqref{eq:fourier}.
+\item Show that
+\begin{align} \label{duality}
+    G(t)&\system{F}g(-f)
+\end{align}
+\solution Using the definition of the Inverse Fourier Transform,
+\begin{align}
+    g(t)=\int_{-\infty}^{\infty}G(f)e^{\j2\pi ft}\,df
+    \label{eq:duality}
+\end{align}
+Hence, setting $t := -f$ and $f := t$, which implies $df = dt$,
+\begin{align}
+    g(-f)&=\int_{-\infty}^{\infty}G(t)e^{-\j2\pi ft}\,dt \\
+    \implies G(t)&\system{F}g(-f)
+\end{align}
 	 \item $\delta(t)\system{F}?$\\
 	 \solution By applying the defination fo fourier transformation for $\delta(t-t_0)$ \{$t_0$ be time shifting\}.
 	 \begin{align}
@@ -464,7 +484,7 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 		\cos(2\pi f_0t) &= \frac{e^{j2\pi f_0t}+e^{-j2\pi f_0t}}{2}\\
 		\mathcal{F}\sbrak{\cos(2\pi f_0t)} &= \int_{-\infty}^\infty \cos(2\pi f_0t) e^{-j2\pi ft}dt\\
 		&= \int_{-\infty}^\infty \frac{e^{j2\pi f_0t}+e^{-j2\pi f_0t}}{2} e^{-j2\pi ft}dt\\
-		&= \frac{1}{2}\sbrak{\int_{-\infty}^\infty e^{j2\pi f_0te^{-j2\pi ft}dt}+ \int_{-\infty}^\infty e^{-j2\pi f_0t}e^{-j2\pi ft}dt}\\
+		&= \frac{1}{2}\Bigg[\int_{-\infty}^\infty e^{j2\pi f_0te^{-j2\pi ft}dt}\nonumber \\&\qquad+ \int_{-\infty}^\infty e^{-j2\pi f_0t}e^{-j2\pi ft}dt\Bigg]\\
 		&= \frac{1}{2}\sbrak{\delta(f-f_0)+\delta(f+f_0)}\\
 		\therefore \cos(2\pi f_0t)&\system{F}\frac{1}{2}\sbrak{\delta(f-f_0)+\delta(f+f_0)}
 	 \end{align}
@@ -484,6 +504,19 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 		k &= \frac{A_0}{2\pi (f_0^2-f^2)}\\
 		\therefore \quad X(f)&= \frac{A_0}{\pi (f_0^2-f^2)}
 	 \end{align}
+	 The following code will plot the graph in fig \eqref{plot6}
+	\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/3.8.py
+	\end{lstlisting}
+	run the above code using the command
+	\begin{lstlisting}
+	python3 3.8.py
+	\end{lstlisting}
+	\begin{figure}[!ht]
+		\includegraphics[width=\columnwidth]{./figs/3.8.png}
+		\caption{$\mathcal{F}[x(t)]$}
+		\label{plot6}
+	\end{figure}
 	 \item Show that 
 	 \begin{align}
 		 \rect{t} \system{F} \sinc{t}
@@ -507,7 +540,7 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/3.9.py
 	\end{lstlisting}
 	run the above code using the command
 	\begin{lstlisting}
-	python3 2.3.py
+	python3 3.9.py
 	\end{lstlisting}
 	\begin{figure}[!ht]
 		\includegraphics[width=\columnwidth]{./figs/3.9.png}
@@ -517,8 +550,22 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/3.9.py
 	 \item $\sinc{t}\system{F} ?$.  Verify using python.\\
 	 \solution from \eqref{duality} we can say
 	 \begin{align}
-		\sinc{t} \system{F} \rect{-f}
+		\sinc{t} &\system{F} \rect{-f}\\
+		& \qquad \rect{f}
 	 \end{align}
+	 The following code will plot the graph in fig \eqref{plot5}
+	 \begin{lstlisting}
+ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/3.10.py
+	 \end{lstlisting}
+	 run the above code using the command
+	 \begin{lstlisting}
+	 python3 3.10.py
+	 \end{lstlisting}
+	 \begin{figure}[!ht]
+		 \includegraphics[width=\columnwidth]{./figs/3.10.png}
+		 \caption{$\mathcal{F}[\sinc{t}]$}
+		 \label{plot5}
+	 \end{figure}
 	\end{enumerate}
 
 	\section{Filter}

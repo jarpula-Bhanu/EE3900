@@ -1,23 +1,29 @@
 import numpy as np
-from scipy.fft import fft
-import matplotlib.pyplot as plt
+from scipy import fft
+from matplotlib import pyplot as plt
+import subprocess
+import shlex
 
 A = 12
 f = 50
+scl = 400
+def ddf(k):
+    mag = 4*A/(np.pi*(1-k**2))
+    plt.plot([f*k, f*k], [0, scl*np.abs(mag)], 'C1')
 
-t = np.arange(0,1,1/2000)
-
-x = A*np.abs(np.sin(2*np.pi*f*t))
-X = fft(x)
-print(X)
-
-N = len(X)
-n = np.arange(N)
-print(N)
-
-plt.stem(np.real(X),n)
+ddf_vec = np.vectorize(ddf)
+ts = 1e-4
+t = np.arange(-2/f, 2/f, ts)
+sig = A*np.abs(np.sin(2*np.pi*f*t))
+sig_fft = fft.fft(sig)
+sampl_freq = fft.fftfreq(sig.size, d=ts)
+plt.plot(sampl_freq, np.abs(sig_fft), 'C0.')
+ddf_vec([-4, -2, 0, 2, 4])
 plt.grid()
-plt.xlim(-10,10)
-plt.ylim(0,10)
-
+plt.xlim(-10*f, 10*f)
+plt.xlabel('f (Hz)')
+plt.ylabel('X(f)')
+plt.legend(['Simulation', 'Analysis'])
+plt.savefig('../figs/3.8.png')
 plt.show()
+subprocess.run(shlex.split("termux-open ../figs/3.8.png"))

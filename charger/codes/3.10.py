@@ -1,18 +1,26 @@
 import numpy as np
-import matplotlib.pyplot as plt
+from scipy import fft, signal
+from matplotlib import pyplot as plt
+import subprocess
+import shlex
 
-x = np.arange(-2, 2, 0.05)
-y = np.sinc(x)
-ffty = np.fft.fft(y)
-# ffty = np.fft.fftshift(ffty)
-# ffty = np.ceil(np.real(ffty))
-# print(ffty)
+def rect_smpl(x): return 1 if (np.abs(x) <= 0.5) else 0
+rect = np.vectorize(rect_smpl, otypes=['double'])
 
-plt.plot(ffty)
-# plt.xlim(30,60)
-# plt.ylim(-10,20)
-plt.xlabel("f")
-plt.ylabel("$\mathcal{F}[rect(t)]$")
-plt.legend(['$\mathcal{F}[rect(t)]$','sinc(f)'])
-plt.savefig("./figs/3.10.png")
+ts = 2e-4
+N = 100
+mid = int(N/ts)
+sig = np.sinc(np.arange(-N, N, ts))
+sig_fft = fft.fftshift(fft.fft(sig))
+sig_fft = np.abs(sig_fft)/np.abs(sig_fft[mid])
+sf = fft.fftshift(fft.fftfreq(sig.size, d=ts))
+plt.plot(sf, sig_fft, '.')
+plt.plot(sf, rect(sf))
+plt.legend(['Simulation', 'Analysis'])
+plt.grid()
+plt.xlim(-2, 2)
+plt.xlabel('f (Hz)')
+plt.ylabel('H(f)')
+plt.savefig('../figs/3.10.png')
 plt.show()
+subprocess.run(shlex.split("termux-open ../figs/3.10.png"))

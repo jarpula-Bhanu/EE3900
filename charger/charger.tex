@@ -431,7 +431,7 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 	 \end{align}
 	 \solution
 	 \item Show that 
-	 \begin{align}
+	 \begin{align} \label{duality}
 		 G(t)&\system{F}g(-f)
 	 \end{align}
 	 \solution
@@ -468,13 +468,57 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/2.6.py
 		&= \frac{1}{2}\sbrak{\delta(f-f_0)+\delta(f+f_0)}\\
 		\therefore \cos(2\pi f_0t)&\system{F}\frac{1}{2}\sbrak{\delta(f-f_0)+\delta(f+f_0)}
 	 \end{align}
-	 \item Find the Fourier Transform of $x(t)$ and plot it.  Verify using python.
+	 \item Find the Fourier Transform of $x(t)$ and plot it.  Verify using python.\\
+	 \solution \begin{align}
+		x(t) &= A_0 \abs{\sin(2\pi f_0 t)}\\
+		X(f)&= \int_{-\infty}^\infty x(t)e^{-j2\pi ft}dt\\
+		&= \int_{-\infty}^\infty A_0\abs{\sin(2\pi f_0t)}e^{-j2\pi ft}dt\\
+		&= A_0 \int_0^\infty \sin(2\pi f_0t)e^{-j2\pi ft}dt + K\\
+		&= \frac{A_0}{2j}\int_0^\infty( e^{j2\pi f_0t}+e^{-j2\pi f_0t}) e^{-j2\pi ft} dt + K\\
+		&= \frac{A_0}{2j}\int_0^\infty( e^{j2\pi (f_0-f)t}+e^{-j2\pi (f_0-f)t}) dt + K\\
+		&= \frac{A_0}{2j} \sbrak{0-\frac{1}{j2\pi (f_0-f)}}-\frac{A_0}{2j} \sbrak{0-\frac{1}{j2\pi (f_0+f)}}\\
+		&= \frac{A_0}{2\pi (f_0^2-f^2)}+k
+	 \end{align}
+	 By symmetry we get 
+	 \begin{align}
+		k &= \frac{A_0}{2\pi (f_0^2-f^2)}\\
+		\therefore \quad X(f)&= \frac{A_0}{\pi (f_0^2-f^2)}
+	 \end{align}
 	 \item Show that 
 	 \begin{align}
 		 \rect{t} \system{F} \sinc{t}
 	 \end{align}
-	 Verify using python.
-	 \item $\sinc{t}\system{F} ?$.  Verify using python.
+	 Verify using python.\\
+	 \solution \begin{align}
+		\rect{t} &= \begin{cases}
+			1 \quad \abs{t}<T\\
+			0 \quad \text{otherwise}
+		\end{cases}\\
+		\mathcal{F}\sbrak{\rect{t}}&= \int_{-\infty}^\infty \rect{t}e^{-j2\pi ft}dt\\
+		&= \int_{-T}^T e^{-j2\pi ft}dt\\
+		&=\frac{1}{-j2\pi f}\sbrak{e^{-j2\pi fT}-e^{j2\pi fT}}\\
+		&=\frac{1}{\pi f}\sbrak{ \frac{e^{j2\pi fT}-e^{-j2\pi fT}}{2j}}\\
+		&=\frac{\sin{\pi f}}{\pi f}\\
+		&= \sinc{f}
+	 \end{align}
+	 The following code will plot the graph in fig \eqref{plot4}
+	\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/3.9.py
+	\end{lstlisting}
+	run the above code using the command
+	\begin{lstlisting}
+	python3 2.3.py
+	\end{lstlisting}
+	\begin{figure}[!ht]
+		\includegraphics[width=\columnwidth]{./figs/3.9.png}
+		\caption{$\mathcal{F}[\rect{t}]$}
+		\label{plot4}
+	\end{figure}
+	 \item $\sinc{t}\system{F} ?$.  Verify using python.\\
+	 \solution from \eqref{duality} we can say
+	 \begin{align}
+		\sinc{t} \system{F} \rect{-f}
+	 \end{align}
 	\end{enumerate}
 
 	\section{Filter}

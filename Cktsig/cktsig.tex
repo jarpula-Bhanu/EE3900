@@ -818,7 +818,26 @@ Using \eqref{eq:v2-t},
             \begin{enumerate}[label=\thesection.\arabic*.,ref=\thesection.\theenumi]
             \item In Fig. \ref{fig:ckt}, consider the case when $S$ is switched to $Q$ right in the beginning. Formulate the differential equation
             
-            \solution The differential equation is the same as before 
+            \solution The equivalent circuit in the $t$-domain is shown below.
+	
+            \begin{figure}[!htb]
+                \begin{center}
+                \begin{circuitikz} 
+                \draw
+                (0,0) -- (0,3)
+                node[label={above:Q}] {}
+                to[R, l^=$R_1$, *-*, i = $i_1$] (3,3) 
+                node[label={above:X}] {}
+                to[R, l^=$R_2$, i = $i_3$] (5.5,3)
+                to[battery1, l= $V_2$] (5.5,0)
+                -- (0,0)
+                (3,3) to[C, l=$C_0$, i = $i_2$] (3,0) ;
+                \end{circuitikz}
+                \end{center}
+            \caption{}
+            \label{fig:tckt-q4}
+            \end{figure}
+            The differential equation is the same as before 
             \begin{align}
                 &\frac{v_c(t) - 0}{R_1} + \frac{v_c(t) - v_2(t)}{R_2} + \frac{\der{q}}{\der{t}} = 0 \\
                 \text{i.e., } &\frac{v_c(t)}{R_1} + \frac{v_c(t) - v_2(t)}{R_2} + C_0\frac{\der{v_c}}{\der{t}} = 0
@@ -831,7 +850,28 @@ Using \eqref{eq:v2-t},
             
             \item Find $H(s)$ considering the ouput voltage at the capacitor
             
-            \solution On taking the Laplace transform on both sides of this equation
+            \solution
+            Transforming Fig. \ref{fig:tckt-q4} to the $s$-domain,
+\begin{figure}[!htb]
+    \begin{center}
+    \begin{circuitikz} 
+    \ctikzset{resistor = european}
+    \draw
+    (0,0) -- (0,3)
+    node[label={above:Q}] {}
+    to[R, l^=$R_1$, *-*] (3,3) 
+    node[label={above:X}] {}
+    to[R, l^=$R_2$] (5.5,3)
+    to[battery1, l= $V_2(s)$] (5.5,0)
+    -- (0,0)
+    (3,3) to[R, l=$\frac{1}{sC_0}$] (3,0) 
+    -- (3,-0.5) node[ground, label={right:G}] {};
+    \end{circuitikz}
+    \end{center}
+\caption{}
+\label{fig:sckt-q4}
+\end{figure}
+            On taking the Laplace transform on both sides of this equation
             \begin{align}
                 &\frac{V_c(s)}{R_1} + \frac{V_c(s) - V_2(s)}{R_2} + sQ(s) - 0 = 0 \\
                 \implies &V_c(s) \brak{\frac{1}{R_1} + \frac{1}{R_2}} + sC_0V_c(s) = \frac{V_2(s)}{R_2} \\
@@ -963,6 +1003,38 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Cktsig/codes/4.3.py
         &= \frac{2.5\times10^5 (1+z^{-1})}{7.5\times10^5 + 1 + (7.5\times10^5 - 1)z^{-1}}
     \end{align}
     which is the same as what we obtained earlier
+
+
+\item Find $v(n)$. Verify using ngspice and the differential equation.\\
+\solution We have,
+\begin{align}
+    V(z) &= H(z)V_i(z) \\
+         &= \frac{TV_2\tau\brak{1+z^{-1}}}{C_0R_2\brak{1-z^{-1}}\brak{\brak{2\tau+T}-\brak{2\tau-T}z^{-1}}} \\
+         &= \frac{V_2\tau\brak{z+1}}{2C_0R_2}\sum_{k=-\infty}^{\infty}\brak{1-p^k}u(k)z^{-k}
+\end{align}
+where $p := \frac{2\tau-T}{2\tau+T}$. Thus,
+\begin{align}
+    v(n) = \frac{V_2\tau}{C_0R_2}\sbrak{u(n)\brak{1-p^n}+u(n+1)\brak{1-p^{n+1}}}
+\end{align}
+where $p := \frac{2\tau-1}{2\tau+1}$. We take $T = 10^{-7}$ as the
+sampling interval. 
+these equalities.\\
+Download the following Python code that plots Fig. \ref{fig:vc0}
+            \begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Cktsig/codes/4.7.cir
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/Cktsig/codes/4.7.py
+            \end{lstlisting}
+            
+    Run the codes by executing
+    \begin{lstlisting}
+        ngspice 4.7.cir
+        python 4.7.py
+    \end{lstlisting}
+\begin{figure}[!ht]
+    \includegraphics[width=\columnwidth]{figs/4.7.png}
+    \caption{Representation of output across $C_0$.}
+    \label{fig:vc0}
+\end{figure}
             \end{enumerate}
 
 \end{document}

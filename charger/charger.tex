@@ -572,9 +572,53 @@ wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/3.9.py
 
 \begin{enumerate}[label=\thesection.\arabic*
 	,ref=\thesection.\theenumi]
-	\item Find $H(f)$ which transforms $x(t)$ to DC 5V.
-	\item Find $h(t)$.
-	\item Verify your result using  through convolution.
+	\item Find $H(f)$ which transforms $x(t)$ to DC 5V.\\
+\solution The function $H(f)$ is a low pass filter which filters out
+even harmonics and leaves the zero frequency component behind.
+The rectangular function represents an ideal low pass filter. 
+Suppose the cutoff frequency is $f_c = 50$ Hz, then
+\begin{align}
+    H(f) = \rect{\frac{f}{2f_c}} =
+    \begin{cases}
+        1 & \abs{f} < f_c \\
+        0 & \textrm{otherwise}
+    \end{cases}
+    \label{eq:Hf}
+\end{align}
+Multiplying by a scaling factor to get DC 5V,
+\begin{align}
+    H(f) = \frac{\pi V_0}{2A_0}\rect{\brak{\frac{f}{2f_c}}}
+\end{align}
+where $V_0 = 5$ V.
+\item Find $h(t)$.\\
+\solution Suppose $g(t)\system{F}G(f)$. Then, for some
+nonzero $a \in \mathbb{R}$
+\begin{align}
+    g(at)&\system{F}\int_{-\infty}^{\infty}g(at)e^{-\j2\pi ft}\, dt \\
+         &=\frac{1}{a}\int_{-\infty}^{\infty}g(u)e^{\brak{-\j2\pi \frac{f}{a}t}}\, dt \\
+         &=\frac{1}{a}G\brak{\frac{f}{a}}
+         \label{eq:t-scaling}
+\end{align}
+where we have substituted $u := at$. Using 
+\eqref{eq:t-scaling} of the Fourier Transform in \eqref{eq:Hf},
+\begin{align}
+    h(t) = \frac{2\pi V_0}{A_0}f_c \text{sinc} \brak{2f_ct}
+\end{align}
+	\item Verify your result using  through convolution.\\
+	\solution
+	The following code will plot the graph in fig \eqref{plot7}
+	\begin{lstlisting}
+wget https://github.com/jarpula-Bhanu/EE3900/blob/main/charger/codes/4.3.py
+	\end{lstlisting}
+	run the above code using the command
+	\begin{lstlisting}
+	python3 4.3.py
+	\end{lstlisting}
+	\begin{figure}[!ht]
+		\includegraphics[width=\columnwidth]{./figs/4.3.png}
+		\caption{convolution of two signals}
+		\label{plot7}
+	\end{figure}
 	\end{enumerate}
 
 \section{Filter Design}
